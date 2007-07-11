@@ -12,20 +12,18 @@
 %define develname %mklibname %{name} -d
 
 Summary:	Library providing a secure layer (SSL)
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
-URL:		http://www.gnutls.org/
+Name:		gnutls
+Version:	1.6.3
+Release:	%mkrel 1
+URL:		http://www.gnutls.org
 License:	GPL/LGPL
 Group:		System/Libraries
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-
 Source0:	ftp://ftp.gnutls.org/pub/gnutls/%{name}-%{version}.tar.bz2
 Source1:	%{SOURCE0}.sig
-
 BuildRequires:	opencdk-devel >= %{opencdk_version}
 BuildRequires:	liblzo-devel
 BuildRequires:	libgcrypt-devel >= %{libgcrypt_version}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 GnuTLS is a project that aims to develop a library which provides 
@@ -63,11 +61,14 @@ programs/libraries that use %{name}.
 autoreconf
 
 %build
-export CPPFLAGS="-I%_includedir/lzo"
+export CPPFLAGS="-I%{_includedir}/lzo"
 %configure2_5x \
 	--with-included-libtasn1=yes \
 	--with-included-libcfg=yes \
 	--disable-srp-authentication \
+	--with-libz-prefix=%{_prefix} \
+	--with-libgcrypt \
+	--with-libgcrypt-prefix=%{_prefix}
 	--disable-rpath
 
 %make
