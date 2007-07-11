@@ -1,5 +1,5 @@
 %define	name	gnutls
-%define version 1.6.1
+%define version 1.6.3
 %define release %mkrel 1
 
 # older opencdk forgot to bundle m4 file
@@ -9,6 +9,7 @@
 %define major 13
 %define libname %mklibname %{name} %{major}
 %define libname_orig lib%{name}
+%define develname %mklibname %{name} -d
 
 Summary:	Library providing a secure layer (SSL)
 Name:		%{name}
@@ -39,17 +40,18 @@ Provides:	%{libname_orig} = %{version}-%{release}
 GnuTLS is a project that aims to develop a library which provides
 a secure layer, over a reliable transport layer.
 
-%package -n	%{libname}-devel
+%package -n	%{develname}
 Summary:	Development files for %{name}
 Group:		Development/C
-Requires:	%{name} = %{version}
-Requires:	%{libname} = %{version}
+Requires:	%{name} = %{version}-%{release}
+Requires:	%{libname} = %{version}-%{release}
 Provides:	%{libname_orig}-devel = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 Requires:	opencdk-devel >= %{opencdk_version}
 Requires:	libgcrypt-devel >= %{libgcrypt_version}
+Obsoletes:	%mklibname %{name} 13 -d
 
-%description -n	%{libname}-devel
+%description -n	%{develname}
 GnuTLS is a project that aims to develop a library which provides
 a secure layer, over a reliable transport layer.
 
@@ -65,14 +67,15 @@ export CPPFLAGS="-I%_includedir/lzo"
 %configure2_5x \
 	--with-included-libtasn1=yes \
 	--with-included-libcfg=yes \
-	--disable-srp-authentication
+	--disable-srp-authentication \
+	--disable-rpath
 
 %make
 
 %install
 rm -rf %{buildroot}
 
-%{makeinstall_std}
+%makeinstall_std
 
 %{find_lang} %{name}
 %multiarch_binaries %{buildroot}%{_bindir}/libgnutls-config %{buildroot}%{_bindir}/libgnutls-extra-config
@@ -100,9 +103,9 @@ rm -rf %{buildroot}
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/lib*.so.*
+%{_libdir}/lib*.so.%{major}*
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %{_libdir}/*.so
 %{_libdir}/*.a
@@ -115,5 +118,3 @@ rm -rf %{buildroot}
 %multiarch
 %{multiarch_bindir}/libgnutls-config 
 %{multiarch_bindir}/libgnutls-extra-config 
-
-
