@@ -68,7 +68,7 @@ export CPPFLAGS="-I%{_includedir}/lzo"
 	--disable-srp-authentication \
 	--with-libz-prefix=%{_prefix} \
 	--with-libgcrypt \
-	--with-libgcrypt-prefix=%{_prefix}
+	--with-libgcrypt-prefix=%{_prefix} \
 	--disable-rpath
 
 %make
