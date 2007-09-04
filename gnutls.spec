@@ -1,7 +1,3 @@
-%define	name	gnutls
-%define version 1.6.3
-%define release %mkrel 1
-
 # older opencdk forgot to bundle m4 file
 %define opencdk_version 0.5.4-2mdk
 %define libgcrypt_version 1.1.94
@@ -13,10 +9,10 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	1.6.3
+Version:	2.0.0
 Release:	%mkrel 1
 URL:		http://www.gnutls.org
-License:	GPL/LGPL
+License:	GPLv2+/LGPLv2+
 Group:		System/Libraries
 Source0:	ftp://ftp.gnutls.org/pub/gnutls/%{name}-%{version}.tar.bz2
 Source1:	%{SOURCE0}.sig
