@@ -12,7 +12,7 @@ Name:		gnutls
 Version:	2.0.0
 Release:	%mkrel 1
 URL:		http://www.gnutls.org
-License:	GPLv2+/LGPLv2+
+License:	GPLv2+/LGPLv2.1+
 Group:		System/Libraries
 Source0:	ftp://ftp.gnutls.org/pub/gnutls/%{name}-%{version}.tar.bz2
 Source1:	%{SOURCE0}.sig
