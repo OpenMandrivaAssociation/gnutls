@@ -10,7 +10,7 @@
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	2.0.0
-Release:	%mkrel 1
+Release:	%mkrel 2
 URL:		http://www.gnutls.org
 License:	GPLv2+/LGPLv2.1+
 Group:		System/Libraries
