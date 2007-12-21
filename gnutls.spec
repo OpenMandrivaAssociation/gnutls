@@ -19,6 +19,7 @@ Source1:	%{SOURCE0}.sig
 BuildRequires:	opencdk-devel >= %{opencdk_version}
 BuildRequires:	liblzo-devel
 BuildRequires:	libgcrypt-devel >= %{libgcrypt_version}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 GnuTLS is a project that aims to develop a library which provides 
