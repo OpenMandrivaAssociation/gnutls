@@ -1,5 +1,5 @@
 # older opencdk forgot to bundle m4 file
-%define opencdk_version 0.5.4-2mdk
+%define opencdk_version 0.6.0
 %define libgcrypt_version 1.1.94
 
 %define major 26
