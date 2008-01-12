@@ -2,7 +2,7 @@
 %define opencdk_version 0.5.4-2mdk
 %define libgcrypt_version 1.1.94
 
-%define major 13
+%define major 26
 %define libname %mklibname %{name} %{major}
 %define libname_orig lib%{name}
 %define develname %mklibname %{name} -d
