@@ -9,13 +9,12 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	2.2.1
+Version:	2.3.0
 Release:	%mkrel 1
 URL:		http://www.gnutls.org
 License:	GPLv2+/LGPLv2.1+
 Group:		System/Libraries
 Source0:	http://www.gnu.org/software/gnutls/releases/%{name}-%{version}.tar.bz2
-Source1:	%{SOURCE0}.sig
 BuildRequires:	opencdk-devel >= %{opencdk_version}
 BuildRequires:	liblzo-devel
 BuildRequires:	libgcrypt-devel >= %{libgcrypt_version}
@@ -54,7 +53,7 @@ programs/libraries that use %{name}.
 
 %prep
 %setup -q
-autoreconf
+#autoreconf
 
 %build
 export CPPFLAGS="-I%{_includedir}/lzo"
@@ -65,7 +64,8 @@ export CPPFLAGS="-I%{_includedir}/lzo"
 	--with-libz-prefix=%{_prefix} \
 	--with-libgcrypt \
 	--with-libgcrypt-prefix=%{_prefix} \
-	--disable-rpath
+	--disable-rpath \
+    --disable-guile
 
 %make
 
@@ -101,6 +101,7 @@ rm -rf %{buildroot}
 %files -n %{libname}
 %defattr(-,root,root)
 %{_libdir}/lib*.so.%{major}*
+
 
 %files -n %{develname}
 %defattr(-,root,root)
