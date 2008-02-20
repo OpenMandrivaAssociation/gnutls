@@ -10,7 +10,7 @@
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	2.3.0
-Release:	%mkrel 1
+Release:	%mkrel 2
 URL:		http://www.gnutls.org
 License:	GPLv2+/LGPLv2.1+
 Group:		System/Libraries
@@ -53,14 +53,12 @@ programs/libraries that use %{name}.
 
 %prep
 %setup -q
-#autoreconf
 
 %build
 export CPPFLAGS="-I%{_includedir}/lzo"
 %configure2_5x \
 	--with-included-libtasn1=yes \
 	--with-included-libcfg=yes \
-	--disable-srp-authentication \
 	--with-libz-prefix=%{_prefix} \
 	--with-libgcrypt \
 	--with-libgcrypt-prefix=%{_prefix} \
@@ -71,7 +69,6 @@ export CPPFLAGS="-I%{_includedir}/lzo"
 
 %install
 rm -rf %{buildroot}
-
 %makeinstall_std
 
 %{find_lang} %{name}
