@@ -12,7 +12,7 @@ Name:		gnutls
 Version:	2.3.0
 Release:	%mkrel 2
 URL:		http://www.gnutls.org
-License:	GPLv2+/LGPLv2.1+
+License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Source0:	http://www.gnu.org/software/gnutls/releases/%{name}-%{version}.tar.bz2
 BuildRequires:	opencdk-devel >= %{opencdk_version}
