@@ -9,22 +9,26 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	2.3.9
+Version:	2.3.11
 Release:	%mkrel 1
-URL:		http://www.gnutls.org
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
+URL:		http://www.gnutls.org
 Source0:	http://www.gnu.org/software/gnutls/releases/%{name}-%{version}.tar.bz2
+Source1:	%{SOURCE0}.sig
+Patch0:		gnutls-2.3.11-enamples-missing-header.patch
 BuildRequires:	opencdk-devel >= %{opencdk_version}
 BuildRequires:	liblzo-devel
 BuildRequires:	libgcrypt-devel >= %{libgcrypt_version}
+BuildRequires:	libtasn1-devel
+BuildRequires:	valgrind
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 GnuTLS is a project that aims to develop a library which provides 
 a secure layer, over a reliable transport layer.
 
-%package -n	%{libname}
+%package -n %{libname}
 Summary:	Library providing a secure layer (SSL)
 Group:		System/Libraries
 Provides:	%{libname_orig} = %{version}-%{release}
@@ -33,7 +37,7 @@ Provides:	%{libname_orig} = %{version}-%{release}
 GnuTLS is a project that aims to develop a library which provides
 a secure layer, over a reliable transport layer.
 
-%package -n	%{develname}
+%package -n %{develname}
 Summary:	Development files for %{name}
 Group:		Development/C
 Requires:	%{name} = %{version}-%{release}
@@ -53,19 +57,26 @@ programs/libraries that use %{name}.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 export CPPFLAGS="-I%{_includedir}/lzo"
 %configure2_5x \
-	--with-included-libtasn1=yes \
+	--with-included-libtasn1=no \
 	--with-included-libcfg=yes \
+	--with-lzo \
 	--with-libz-prefix=%{_prefix} \
 	--with-libgcrypt \
 	--with-libgcrypt-prefix=%{_prefix} \
+	--with-libtasn1-prefix=%{_prefix} \
 	--disable-rpath \
-    --disable-guile
+	--disable-guile \
+	--enable-valgrind-tests
 
 %make
+
+%check
+make check
 
 %install
 rm -rf %{buildroot}
@@ -89,7 +100,7 @@ rm -rf %{buildroot}
 
 %files -f %{name}.lang 
 %defattr(-,root,root)
-%doc ChangeLog NEWS README COPYING
+%doc ChangeLog NEWS README
 %{_bindir}/[cgs]*
 %{_bindir}/psktool
 %{_mandir}/man?/*
@@ -98,7 +109,6 @@ rm -rf %{buildroot}
 %files -n %{libname}
 %defattr(-,root,root)
 %{_libdir}/lib*.so.%{major}*
-
 
 %files -n %{develname}
 %defattr(-,root,root)
