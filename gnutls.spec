@@ -91,12 +91,16 @@ rm -rf %{buildroot}
 %post
 %_install_info gnutls.info
 
+%if %mdkversion < 200900
 %post -p /sbin/ldconfig -n %{libname}
+%endif
 
 %postun
 %_remove_install_info gnutls.info
 
+%if %mdkversion < 200900
 %postun -p /sbin/ldconfig -n %{libname}
+%endif
 
 %files -f %{name}.lang 
 %defattr(-,root,root)
