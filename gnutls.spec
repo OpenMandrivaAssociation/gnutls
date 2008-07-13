@@ -9,14 +9,14 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	2.4.0
-Release:	%mkrel 2
+Version:	2.4.1
+Release:	%mkrel 1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gnutls.org
 Source0:	http://www.gnu.org/software/gnutls/releases/%{name}-%{version}.tar.bz2
 Source1:	%{SOURCE0}.sig
-Patch0:		gnutls-2.3.11-enamples-missing-header.patch
+Patch0:		gnutls-2.3.11-examples-missing-header.patch
 BuildRequires:	opencdk-devel >= %{opencdk_version}
 BuildRequires:	liblzo-devel
 BuildRequires:	libgcrypt-devel >= %{libgcrypt_version}
