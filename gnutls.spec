@@ -1,6 +1,6 @@
 # older opencdk forgot to bundle m4 file
 %define opencdk_version 0.6.0
-%define libgcrypt_version 1.1.94
+%define libgcrypt_version 1.2.4
 
 %define major 26
 %define libname %mklibname %{name} %{major}
@@ -9,7 +9,7 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	2.4.2
+Version:	2.6.0
 Release:	%mkrel 1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
@@ -20,7 +20,7 @@ Patch0:		gnutls-2.3.11-examples-missing-header.patch
 BuildRequires:	opencdk-devel >= %{opencdk_version}
 BuildRequires:	liblzo-devel
 BuildRequires:	libgcrypt-devel >= %{libgcrypt_version}
-BuildRequires:	libtasn1-devel
+BuildRequires:	libtasn1-devel >= 0.3.4
 BuildRequires:	valgrind
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
@@ -60,7 +60,7 @@ programs/libraries that use %{name}.
 %patch0 -p1
 
 %build
-export CPPFLAGS="-I%{_includedir}/lzo"
+autoreconf
 %configure2_5x \
 	--with-included-libtasn1=no \
 	--with-included-libcfg=yes \
