@@ -9,12 +9,12 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	2.6.1
+Version:	2.6.2
 Release:	%mkrel 1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gnutls.org
-Source0:	http://www.gnu.org/software/gnutls/releases/%{name}-%{version}.tar.bz2
+Source0:	http://ftp.gnu.org/pub/gnu/gnutls/%{name}-%{version}.tar.bz2
 Source1:	%{SOURCE0}.sig
 Patch0:		gnutls-2.3.11-examples-missing-header.patch
 BuildRequires:	opencdk-devel >= %{opencdk_version}
