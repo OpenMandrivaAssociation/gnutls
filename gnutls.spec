@@ -9,14 +9,13 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	2.6.6
+Version:	2.8.0
 Release:	%mkrel 1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gnutls.org
 Source0:	http://ftp.gnu.org/pub/gnu/gnutls/%{name}-%{version}.tar.bz2
 Source1:	%{SOURCE0}.sig
-Patch0:		gnutls-2.3.11-examples-missing-header.patch
 BuildRequires:	opencdk-devel >= %{opencdk_version}
 BuildRequires:	liblzo-devel
 BuildRequires:	libgcrypt-devel >= %{libgcrypt_version}
@@ -57,10 +56,8 @@ programs/libraries that use %{name}.
 
 %prep
 %setup -q
-%patch0 -p0
 
 %build
-autoreconf
 %configure2_5x \
 	--with-included-libtasn1=no \
 	--with-included-libcfg=yes \
@@ -82,8 +79,7 @@ make check
 rm -rf %{buildroot}
 %makeinstall_std
 
-%{find_lang} %{name}
-%multiarch_binaries %{buildroot}%{_bindir}/libgnutls-config %{buildroot}%{_bindir}/libgnutls-extra-config
+%{find_lang} %{name} %{name} libgnutls
 
 %clean
 rm -rf %{buildroot}
@@ -120,10 +116,4 @@ rm -rf %{buildroot}
 %{_libdir}/*.a
 %{_libdir}/*.la
 %{_libdir}/pkgconfig/*.pc
-%{_bindir}/libgnutls*
 %{_includedir}/gnutls
-%{_datadir}/aclocal/*
-
-%multiarch
-%{multiarch_bindir}/libgnutls-config 
-%{multiarch_bindir}/libgnutls-extra-config 
