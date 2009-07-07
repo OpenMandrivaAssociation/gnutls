@@ -10,12 +10,14 @@
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	2.8.1
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gnutls.org
 Source0:	http://ftp.gnu.org/pub/gnu/gnutls/%{name}-%{version}.tar.bz2
 Source1:	%{SOURCE0}.sig
+# adapted from upstream commit c7e003ad9427c655a1b559baff1239a2c1907f32
+Patch0:		gnutls-2.8.1-allow_interrupted.patch
 BuildRequires:	opencdk-devel >= %{opencdk_version}
 BuildRequires:	liblzo-devel
 BuildRequires:	libgcrypt-devel >= %{libgcrypt_version}
@@ -56,6 +58,7 @@ programs/libraries that use %{name}.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %configure2_5x \
