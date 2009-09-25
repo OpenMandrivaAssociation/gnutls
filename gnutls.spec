@@ -10,7 +10,7 @@
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	2.8.4
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gnutls.org
@@ -22,7 +22,9 @@ BuildRequires:	opencdk-devel >= %{opencdk_version}
 BuildRequires:	liblzo-devel
 BuildRequires:	libgcrypt-devel >= %{libgcrypt_version}
 BuildRequires:	libtasn1-devel >= 0.3.4
+%ifnarch %arm %mips
 BuildRequires:	valgrind
+%endif
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
@@ -69,9 +71,11 @@ programs/libraries that use %{name}.
 	--with-libgcrypt \
 	--with-libgcrypt-prefix=%{_prefix} \
 	--with-libtasn1-prefix=%{_prefix} \
+%ifnarch %arm %mips
+	--enable-valgrind-tests \
+%endif
 	--disable-rpath \
-	--disable-guile \
-	--enable-valgrind-tests
+	--disable-guile
 
 %make
 
