@@ -10,7 +10,7 @@
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	2.8.4
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gnutls.org
@@ -107,7 +107,7 @@ rm -rf %{buildroot}
 
 %files -f %{name}.lang 
 %defattr(-,root,root)
-%doc ChangeLog NEWS README
+%doc NEWS README
 %{_bindir}/[cgs]*
 %{_bindir}/psktool
 %{_mandir}/man?/*
