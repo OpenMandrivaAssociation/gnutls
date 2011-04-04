@@ -3,13 +3,15 @@
 %define libgcrypt_version 1.2.4
 
 %define major 26
+%define sslmajor 27
 %define libname %mklibname %{name} %{major}
+%define libssl %mklibname %{name}-ssl %{sslmajor}
 %define libname_orig lib%{name}
 %define develname %mklibname %{name} -d
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	2.10.5
+Version:	2.12.1
 Release:	%mkrel 1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
@@ -38,11 +40,21 @@ Provides:	%{libname_orig} = %{version}-%{release}
 GnuTLS is a project that aims to develop a library which provides
 a secure layer, over a reliable transport layer.
 
+%package -n %{libssl}
+Summary:        Library providing a secure layer (SSL)
+Group:          System/Libraries
+Provides:       %{libname} = %{version}-%{release}
+
+%description -n %{libssl}
+GnuTLS is a project that aims to develop a library which provides
+a secure layer, over a reliable transport layer.
+
 %package -n %{develname}
 Summary:	Development files for %{name}
 Group:		Development/C
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{libname} = %{version}-%{release}
+Requires:	%{libssl} = %{version}-%{release}
 Provides:	%{libname_orig}-devel = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 Requires:	opencdk-devel >= %{opencdk_version}
@@ -107,12 +119,17 @@ rm -rf %{buildroot}
 %doc NEWS README
 %{_bindir}/[cgs]*
 %{_bindir}/psktool
+%{_bindir}/p11tool
 %{_mandir}/man?/*
-%{_infodir}/gnutls*
+%{_infodir}/*
 
 %files -n %{libname}
 %defattr(-,root,root)
 %{_libdir}/lib*.so.%{major}*
+
+%files -n %{libssl}
+%defattr(-,root,root)
+%{_libdir}/lib*.so.%{sslmajor}*
 
 %files -n %{develname}
 %defattr(-,root,root)
