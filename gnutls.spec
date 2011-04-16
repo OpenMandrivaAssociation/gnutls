@@ -1,5 +1,3 @@
-# older opencdk forgot to bundle m4 file
-%define opencdk_version 0.6.0
 %define libgcrypt_version 1.2.4
 
 %define major 26
@@ -12,13 +10,12 @@
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	2.12.2
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gnutls.org
 Source0:	http://ftp.gnu.org/pub/gnu/gnutls/%{name}-%{version}.tar.bz2
 Source1:	%{SOURCE0}.sig
-BuildRequires:	opencdk-devel >= %{opencdk_version}
 BuildRequires:	liblzo-devel
 BuildRequires:	libgcrypt-devel >= %{libgcrypt_version}
 BuildRequires:	libtasn1-devel >= 0.3.4
@@ -57,7 +54,6 @@ Requires:	%{libname} = %{version}-%{release}
 Requires:	%{libssl} = %{version}-%{release}
 Provides:	%{libname_orig}-devel = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
-Requires:	opencdk-devel >= %{opencdk_version}
 Requires:	libgcrypt-devel >= %{libgcrypt_version}
 Obsoletes:	%mklibname %{name} 13 -d
 
