@@ -16,6 +16,7 @@ Group:		System/Libraries
 URL:		http://www.gnutls.org
 Source0:	http://ftp.gnu.org/pub/gnu/gnutls/%{name}-%{version}.tar.bz2
 Source1:	http://ftp.gnu.org/pub/gnu/gnutls/%{name}-%{version}.tar.bz2.sig
+Patch0:		gnutls-2.12.7-dsa-skiptests.patch
 BuildRequires:	liblzo-devel
 BuildRequires:	libgcrypt-devel >= %{libgcrypt_version}
 BuildRequires:	libtasn1-devel >= 0.3.4
@@ -66,6 +67,7 @@ programs/libraries that use %{name}.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %configure2_5x \
