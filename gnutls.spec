@@ -9,7 +9,7 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	2.12.12
+Version:	2.12.14
 Release:	%mkrel 1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
@@ -20,6 +20,7 @@ Patch0:		gnutls-2.12.7-dsa-skiptests.patch
 BuildRequires:	liblzo-devel
 BuildRequires:	libgcrypt-devel >= %{libgcrypt_version}
 BuildRequires:	libtasn1-devel >= 0.3.4
+BuildRequires:	p11-kit-devel
 %ifnarch %arm %mips
 BuildRequires:	valgrind
 %endif
