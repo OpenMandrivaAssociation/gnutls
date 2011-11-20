@@ -94,8 +94,6 @@ make check
 rm -rf %{buildroot}
 %makeinstall_std
 
-%{find_lang} %{name} %{name} libgnutls
-
 %clean
 rm -rf %{buildroot}
 
@@ -113,7 +111,7 @@ rm -rf %{buildroot}
 %postun -p /sbin/ldconfig -n %{libname}
 %endif
 
-%files -f %{name}.lang 
+%files
 %defattr(-,root,root)
 %doc NEWS README
 %{_bindir}/[cgs]*
