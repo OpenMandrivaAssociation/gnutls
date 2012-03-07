@@ -87,6 +87,7 @@ make check
 
 %install
 %makeinstall_std
+%find_lang libgnutls
 
 %post
 %_install_info gnutls.info
@@ -102,7 +103,7 @@ make check
 %{_mandir}/man?/*
 %{_infodir}/*
 
-%files -n %{libname}
+%files -n %{libname} -f libgnutls.lang
 %{_libdir}/lib*.so.%{major}*
 
 %files -n %{libssl}
