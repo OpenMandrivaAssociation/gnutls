@@ -4,7 +4,6 @@
 %define	sslmajor 27
 %define	libname	%mklibname %{name} %{major}
 %define	libssl	%mklibname %{name}-ssl %{sslmajor}
-%define	libname_orig lib%{name}
 %define	devname	%mklibname %{name} -d
 
 Summary:	Library providing a secure layer (SSL)
@@ -32,7 +31,6 @@ a secure layer, over a reliable transport layer.
 %package -n	%{libname}
 Summary:	Library providing a secure layer (SSL)
 Group:		System/Libraries
-Provides:	%{libname_orig} = %{version}-%{release}
 
 %description -n	%{libname}
 GnuTLS is a project that aims to develop a library which provides
@@ -41,7 +39,6 @@ a secure layer, over a reliable transport layer.
 %package -n	%{libssl}
 Summary:        Library providing a secure layer (SSL)
 Group:          System/Libraries
-Provides:       %{libname} = %{version}-%{release}
 
 %description -n	%{libssl}
 GnuTLS is a project that aims to develop a library which provides
@@ -53,7 +50,6 @@ Group:		Development/C
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{libname} = %{version}-%{release}
 Requires:	%{libssl} = %{version}-%{release}
-Provides:	%{libname_orig}-devel = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 Requires:	libgcrypt-devel >= %{libgcrypt_version}
 Obsoletes:	%mklibname %{name} 13 -d
