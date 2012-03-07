@@ -1,16 +1,16 @@
-%define libgcrypt_version 1.2.4
+%define	libgcrypt_version 1.2.4
 
-%define major 26
-%define sslmajor 27
-%define libname %mklibname %{name} %{major}
-%define libssl %mklibname %{name}-ssl %{sslmajor}
-%define libname_orig lib%{name}
-%define develname %mklibname %{name} -d
+%define	major	26
+%define	sslmajor 27
+%define	libname	%mklibname %{name} %{major}
+%define	libssl	%mklibname %{name}-ssl %{sslmajor}
+%define	libname_orig lib%{name}
+%define	devname	%mklibname %{name} -d
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	2.12.14
-Release:	%mkrel 1
+Release:	2
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gnutls.org
@@ -21,16 +21,15 @@ BuildRequires:	liblzo-devel
 BuildRequires:	libgcrypt-devel >= %{libgcrypt_version}
 BuildRequires:	libtasn1-devel >= 0.3.4
 BuildRequires:	p11-kit-devel
-%ifnarch %arm %mips
+%ifnarch %{arm} %{mips}
 BuildRequires:	valgrind
 %endif
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 GnuTLS is a project that aims to develop a library which provides 
 a secure layer, over a reliable transport layer.
 
-%package -n %{libname}
+%package -n	%{libname}
 Summary:	Library providing a secure layer (SSL)
 Group:		System/Libraries
 Provides:	%{libname_orig} = %{version}-%{release}
@@ -39,16 +38,16 @@ Provides:	%{libname_orig} = %{version}-%{release}
 GnuTLS is a project that aims to develop a library which provides
 a secure layer, over a reliable transport layer.
 
-%package -n %{libssl}
+%package -n	%{libssl}
 Summary:        Library providing a secure layer (SSL)
 Group:          System/Libraries
 Provides:       %{libname} = %{version}-%{release}
 
-%description -n %{libssl}
+%description -n	%{libssl}
 GnuTLS is a project that aims to develop a library which provides
 a secure layer, over a reliable transport layer.
 
-%package -n %{develname}
+%package -n	%{devname}
 Summary:	Development files for %{name}
 Group:		Development/C
 Requires:	%{name} = %{version}-%{release}
@@ -59,7 +58,7 @@ Provides:	%{name}-devel = %{version}-%{release}
 Requires:	libgcrypt-devel >= %{libgcrypt_version}
 Obsoletes:	%mklibname %{name} 13 -d
 
-%description -n	%{develname}
+%description -n	%{devname}
 GnuTLS is a project that aims to develop a library which provides
 a secure layer, over a reliable transport layer.
 
@@ -79,7 +78,7 @@ programs/libraries that use %{name}.
 	--with-libgcrypt \
 	--with-libgcrypt-prefix=%{_prefix} \
 	--with-libtasn1-prefix=%{_prefix} \
-%ifnarch %arm %mips
+%ifnarch %{arm} %{mips}
 	--enable-valgrind-tests \
 %endif
 	--disable-rpath \
@@ -91,28 +90,15 @@ programs/libraries that use %{name}.
 make check
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
-
-%clean
-rm -rf %{buildroot}
 
 %post
 %_install_info gnutls.info
 
-%if %mdkversion < 200900
-%post -p /sbin/ldconfig -n %{libname}
-%endif
-
 %postun
 %_remove_install_info gnutls.info
 
-%if %mdkversion < 200900
-%postun -p /sbin/ldconfig -n %{libname}
-%endif
-
 %files
-%defattr(-,root,root)
 %doc NEWS README
 %{_bindir}/[cgs]*
 %{_bindir}/psktool
@@ -121,15 +107,12 @@ rm -rf %{buildroot}
 %{_infodir}/*
 
 %files -n %{libname}
-%defattr(-,root,root)
 %{_libdir}/lib*.so.%{major}*
 
 %files -n %{libssl}
-%defattr(-,root,root)
 %{_libdir}/lib*.so.%{sslmajor}*
 
-%files -n %{develname}
-%defattr(-,root,root)
+%files -n %{devname}
 %{_libdir}/*.so
 %{_libdir}/*.a
 %{_libdir}/*.la
