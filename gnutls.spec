@@ -8,7 +8,7 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.0.18
+Version:	3.0.19
 Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
@@ -51,7 +51,6 @@ Requires:	%{name} = %{version}-%{release}
 Requires:	%{libname} = %{version}-%{release}
 Requires:	%{libssl} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
-Requires:	libgcrypt-devel >= %{libgcrypt_version}
 Obsoletes:	%mklibname %{name} 13 -d
 
 %description -n	%{devname}
