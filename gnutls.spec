@@ -8,7 +8,7 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.0.19
+Version:	3.0.21
 Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
@@ -28,7 +28,7 @@ BuildRequires:	valgrind
 GnuTLS is a project that aims to develop a library which provides 
 a secure layer, over a reliable transport layer.
 
-%package -n	%{libname}
+%package -n %{libname}
 Summary:	Library providing a secure layer (SSL)
 Group:		System/Libraries
 
@@ -36,7 +36,7 @@ Group:		System/Libraries
 GnuTLS is a project that aims to develop a library which provides
 a secure layer, over a reliable transport layer.
 
-%package -n	%{libssl}
+%package -n %{libssl}
 Summary:	Library providing a secure layer (SSL)
 Group:		System/Libraries
 
@@ -44,7 +44,7 @@ Group:		System/Libraries
 GnuTLS is a project that aims to develop a library which provides
 a secure layer, over a reliable transport layer.
 
-%package -n	%{devname}
+%package -n %{devname}
 Summary:	Development files for %{name}
 Group:		Development/C
 Requires:	%{name} = %{version}-%{release}
@@ -65,6 +65,7 @@ programs/libraries that use %{name}.
 
 %build
 %configure2_5x \
+	--disable-static \
 	--with-included-libtasn1=no \
 	--with-included-libcfg=yes \
 	--with-lzo \
@@ -110,6 +111,5 @@ make check
 
 %files -n %{devname}
 %{_libdir}/*.so
-%{_libdir}/*.a
 %{_libdir}/pkgconfig/*.pc
 %{_includedir}/gnutls
