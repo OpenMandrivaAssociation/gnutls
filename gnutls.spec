@@ -9,7 +9,7 @@
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	3.0.21
-Release:	1
+Release:	2
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gnutls.org
@@ -31,6 +31,9 @@ a secure layer, over a reliable transport layer.
 %package -n %{libname}
 Summary:	Library providing a secure layer (SSL)
 Group:		System/Libraries
+%if "%{_lib}" == "lib64"
+Conflicts:	lib%{name}%{major} < %{version}
+%endif
 
 %description -n	%{libname}
 GnuTLS is a project that aims to develop a library which provides
