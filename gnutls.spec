@@ -28,7 +28,7 @@ BuildRequires:	valgrind
 GnuTLS is a project that aims to develop a library which provides 
 a secure layer, over a reliable transport layer.
 
-%package -n %{libname}
+%package -n	%{libname}
 Summary:	Library providing a secure layer (SSL)
 Group:		System/Libraries
 %if "%{_lib}" == "lib64"
@@ -39,7 +39,7 @@ Conflicts:	lib%{name}%{major} < %{version}
 GnuTLS is a project that aims to develop a library which provides
 a secure layer, over a reliable transport layer.
 
-%package -n %{libssl}
+%package -n	%{libssl}
 Summary:	Library providing a secure layer (SSL)
 Group:		System/Libraries
 
@@ -47,7 +47,7 @@ Group:		System/Libraries
 GnuTLS is a project that aims to develop a library which provides
 a secure layer, over a reliable transport layer.
 
-%package -n %{devname}
+%package -n	%{devname}
 Summary:	Development files for %{name}
 Group:		Development/C
 Requires:	%{name} = %{version}-%{release}
