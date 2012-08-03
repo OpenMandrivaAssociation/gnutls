@@ -91,12 +91,6 @@ make check
 %makeinstall_std
 %find_lang gnutls
 
-%post
-%_install_info gnutls.info
-
-%postun
-%_remove_install_info gnutls.info
-
 %files
 %doc NEWS README
 %{_bindir}/[cgs]*
