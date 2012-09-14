@@ -8,8 +8,8 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.0.21
-Release:	2
+Version:	3.1.1
+Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gnutls.org
@@ -19,7 +19,7 @@ BuildRequires:	liblzo-devel
 BuildRequires:	libgcrypt-devel >= %{libgcrypt_version}
 BuildRequires:	libtasn1-devel >= 0.3.4
 BuildRequires:	p11-kit-devel
-BuildRequires:	pkgconfig(nettle)
+BuildRequires:	pkgconfig(nettle) >= 2.5
 %ifnarch %{arm} %{mips}
 BuildRequires:	valgrind
 %endif
