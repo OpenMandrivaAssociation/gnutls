@@ -1,5 +1,3 @@
-%define	libgcrypt_version 1.2.4
-
 %define	major    28
 %define	sslmajor 27
 %define	libname	%mklibname %{name} %{major}
@@ -8,7 +6,7 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.1.1
+Version:	3.1.5
 Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
@@ -16,10 +14,10 @@ URL:		http://www.gnutls.org
 Source0:	http://ftp.gnu.org/pub/gnu/gnutls/%{name}-%{version}.tar.xz
 Source1:	http://ftp.gnu.org/pub/gnu/gnutls/%{name}-%{version}.tar.xz.sig
 BuildRequires:	liblzo-devel
-BuildRequires:	libgcrypt-devel >= %{libgcrypt_version}
-BuildRequires:	libtasn1-devel >= 0.3.4
-BuildRequires:	p11-kit-devel
-BuildRequires:	pkgconfig(nettle) >= 2.5
+BuildRequires:	pkgconfig(libgcrypt)
+BuildRequires:	pkgconfig(libtasn1)
+BuildRequires:	pkgconfig(p11-kit-1)
+BuildRequires:	pkgconfig(nettle)
 %ifnarch %{arm} %{mips}
 BuildRequires:	valgrind
 %endif
@@ -110,3 +108,4 @@ make check
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
 %{_includedir}/gnutls
+
