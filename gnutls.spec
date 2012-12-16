@@ -92,6 +92,7 @@ make check
 %files
 %doc NEWS README
 %{_bindir}/[cgs]*
+%{_bindir}/danetool
 %{_bindir}/psktool
 %{_bindir}/p11tool
 %{_bindir}/ocsptool
