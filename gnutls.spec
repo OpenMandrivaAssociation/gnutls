@@ -1,13 +1,13 @@
-%define	major    28
-%define	sslmajor 27
-%define	libname	%mklibname %{name} %{major}
-%define	libssl	%mklibname %{name}-ssl %{sslmajor}
-%define	devname	%mklibname %{name} -d
+%define major 28
+%define sslmajor 27
+%define libname %mklibname %{name} %{major}
+%define libssl %mklibname %{name}-ssl %{sslmajor}
+%define devname %mklibname %{name} -d
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	3.1.5
-Release:	1
+Release:	2
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gnutls.org
@@ -32,6 +32,7 @@ Group:		System/Libraries
 %if "%{_lib}" == "lib64"
 Conflicts:	lib%{name}%{major} < %{version}
 %endif
+Obsoletes:	%{mklibname gnutls 26} <= 2.12.14
 
 %description -n	%{libname}
 GnuTLS is a project that aims to develop a library which provides
