@@ -12,7 +12,6 @@ License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gnutls.org
 Source0:	http://ftp.gnu.org/pub/gnu/gnutls/%{name}-%{version}.tar.xz
-Source1:	http://ftp.gnu.org/pub/gnu/gnutls/%{name}-%{version}.tar.xz.sig
 BuildRequires:	liblzo-devel
 BuildRequires:	pkgconfig(libgcrypt)
 BuildRequires:	pkgconfig(libtasn1)
