@@ -62,7 +62,7 @@ This package contains all necessary files to compile or develop
 programs/libraries that use %{name}.
 
 %prep
-%setup -q
+%setup -q -n %{name}-3.1.9
 
 %build
 %configure2_5x \
