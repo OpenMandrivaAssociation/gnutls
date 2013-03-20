@@ -1,7 +1,9 @@
 %define major 28
 %define sslmajor 27
+%define xsslmajor 0
 %define libname %mklibname %{name} %{major}
 %define libssl %mklibname %{name}-ssl %{sslmajor}
+%define libxssl %mklibname %{name}-xssl %{xsslmajor}
 %define devname %mklibname %{name} -d
 
 Summary:	Library providing a secure layer (SSL)
@@ -42,6 +44,15 @@ Summary:	Library providing a secure layer (SSL)
 Group:		System/Libraries
 
 %description -n	%{libssl}
+GnuTLS is a project that aims to develop a library which provides
+a secure layer, over a reliable transport layer.
+
+%package -n	%{libxssl}
+Summary:        Library providing a secure layer (SSL)
+Group:          System/Libraries
+Requires:	%{libname} = %{version}
+
+%description -n	%{libxssl}
 GnuTLS is a project that aims to develop a library which provides
 a secure layer, over a reliable transport layer.
 
@@ -104,6 +115,9 @@ make check
 
 %files -n %{libssl}
 %{_libdir}/lib*.so.%{sslmajor}*
+
+%files -n %{libxssl}
+%{_libdir}/lib*.so.%{xsslmajor}*
 
 %files -n %{devname}
 %{_libdir}/*.so
