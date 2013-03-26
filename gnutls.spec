@@ -9,7 +9,7 @@
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	3.1.9.1
-Release:	1
+Release:	2
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gnutls.org
@@ -34,6 +34,7 @@ Group:		System/Libraries
 Conflicts:	lib%{name}%{major} < %{version}
 %endif
 Obsoletes:	%{mklibname gnutls 26} <= 2.12.14
+Requires:	%{name}-locales = %{version}-%{release}
 
 %description -n	%{libname}
 GnuTLS is a project that aims to develop a library which provides
@@ -48,8 +49,8 @@ GnuTLS is a project that aims to develop a library which provides
 a secure layer, over a reliable transport layer.
 
 %package -n	%{libxssl}
-Summary:        Library providing a secure layer (SSL)
-Group:          System/Libraries
+Summary:	Library providing a secure layer (SSL)
+Group:		System/Libraries
 Requires:	%{libname} = %{version}
 
 %description -n	%{libxssl}
@@ -71,6 +72,17 @@ a secure layer, over a reliable transport layer.
 
 This package contains all necessary files to compile or develop
 programs/libraries that use %{name}.
+
+%package locales
+Summary:	Locale files for GnuTLS
+Group:		System/Internationalization 
+Requires:	%{libname} = %{version}
+BuildArch:	noarch
+# (tpg) conflict older libname
+Conflicts:	%{mklibname gnutls 28} <= 3.1.9.1-1
+
+%description
+Locale files for GnuTLS main library.
 
 %prep
 %setup -q -n %{name}-3.1.9
@@ -98,6 +110,7 @@ make check
 
 %install
 %makeinstall_std
+
 %find_lang gnutls
 
 %files
@@ -110,7 +123,9 @@ make check
 %{_mandir}/man?/*
 %{_infodir}/*
 
-%files -n %{libname} -f gnutls.lang
+%files locales -f gnutls.lang
+
+%files -n %{libname}
 %{_libdir}/lib*.so.%{major}*
 
 %files -n %{libssl}
