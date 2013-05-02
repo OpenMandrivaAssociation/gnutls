@@ -1,19 +1,23 @@
+%define url_ver %(echo %{version}|cut -d. -f1,2)
+%define dirver %(echo %{version}|cut -d. -f1,2,3)
+
 %define major 28
 %define sslmajor 27
 %define xsslmajor 0
 %define libname %mklibname %{name} %{major}
-%define libssl %mklibname %{name}-ssl %{sslmajor}
+%define libnamexx %mklibname %{name}xx %{major}
+%define libssl %mklibname %{name}-openssl %{sslmajor}
 %define libxssl %mklibname %{name}-xssl %{xsslmajor}
 %define devname %mklibname %{name} -d
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	3.1.9.1
-Release:	2
+Release:	3
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
-URL:		http://www.gnutls.org
-Source0:	http://ftp.gnu.org/pub/gnu/gnutls/%{name}-%{version}.tar.xz
+Url:		http://www.gnutls.org
+Source0:	ftp://ftp.gnutls.org/gcrypt/gnutls/v%{url_ver}/%{name}-%{version}.tar.xz
 BuildRequires:	liblzo-devel
 BuildRequires:	pkgconfig(libgcrypt)
 BuildRequires:	pkgconfig(libtasn1)
@@ -30,23 +34,29 @@ a secure layer, over a reliable transport layer.
 %package -n	%{libname}
 Summary:	Library providing a secure layer (SSL)
 Group:		System/Libraries
+Suggests:	%{name}-locales = %{version}-%{release}
 %if "%{_lib}" == "lib64"
 Conflicts:	lib%{name}%{major} < %{version}
 %endif
-Obsoletes:	%{mklibname gnutls 26} <= 2.12.14
-Requires:	%{name}-locales = %{version}-%{release}
 
 %description -n	%{libname}
-GnuTLS is a project that aims to develop a library which provides
-a secure layer, over a reliable transport layer.
+This package contains a shared library for %{name}.
+
+%package -n	%{libnamexx}
+Summary:	Library providing a secure layer (SSL)
+Group:		System/Libraries
+Conflicts:	%{_lib}gnutls28 < 3.1.9.1-3
+
+%description -n	%{libnamexx}
+This package contains a shared library for %{name}.
 
 %package -n	%{libssl}
 Summary:	Library providing a secure layer (SSL)
 Group:		System/Libraries
+Obsoletes:	%{_lib}gnutls-ssl27 < 3.1.9.1-3
 
 %description -n	%{libssl}
-GnuTLS is a project that aims to develop a library which provides
-a secure layer, over a reliable transport layer.
+This package contains a shared library for %{name}.
 
 %package -n	%{libxssl}
 Summary:	Library providing a secure layer (SSL)
@@ -54,38 +64,33 @@ Group:		System/Libraries
 Requires:	%{libname} = %{version}
 
 %description -n	%{libxssl}
-GnuTLS is a project that aims to develop a library which provides
-a secure layer, over a reliable transport layer.
+This package contains a shared library for %{name}.
 
 %package -n	%{devname}
 Summary:	Development files for %{name}
 Group:		Development/C
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{libname} = %{version}-%{release}
+Requires:	%{libnamexx} = %{version}-%{release}
 Requires:	%{libssl} = %{version}-%{release}
+Requires:	%{libxssl} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
-Obsoletes:	%mklibname %{name} 13 -d
 
 %description -n	%{devname}
-GnuTLS is a project that aims to develop a library which provides
-a secure layer, over a reliable transport layer.
-
 This package contains all necessary files to compile or develop
 programs/libraries that use %{name}.
 
 %package locales
 Summary:	Locale files for GnuTLS
 Group:		System/Internationalization 
-Requires:	%{libname} = %{version}
 BuildArch:	noarch
-# (tpg) conflict older libname
 Conflicts:	%{mklibname gnutls 28} <= 3.1.9.1-1
 
 %description
 Locale files for GnuTLS main library.
 
 %prep
-%setup -q -n %{name}-3.1.9
+%setup -qn %{name}-%{dirver}
 
 %build
 %configure2_5x \
@@ -106,12 +111,12 @@ Locale files for GnuTLS main library.
 %make
 
 %check
-make check
+#make check
 
 %install
 %makeinstall_std
 
-%find_lang gnutls
+%find_lang %{name}
 
 %files
 %doc NEWS README
@@ -123,16 +128,19 @@ make check
 %{_mandir}/man?/*
 %{_infodir}/*
 
-%files locales -f gnutls.lang
+%files locales -f %{name}.lang
 
 %files -n %{libname}
-%{_libdir}/lib*.so.%{major}*
+%{_libdir}/libgnutls.so.%{major}*
+
+%files -n %{libnamexx}
+%{_libdir}/libgnutlsxx.so.%{major}*
 
 %files -n %{libssl}
-%{_libdir}/lib*.so.%{sslmajor}*
+%{_libdir}/libgnutls-openssl.so.%{sslmajor}*
 
 %files -n %{libxssl}
-%{_libdir}/lib*.so.%{xsslmajor}*
+%{_libdir}/libgnutls-xssl.so.%{xsslmajor}*
 
 %files -n %{devname}
 %{_libdir}/*.so
