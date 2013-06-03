@@ -18,6 +18,7 @@ License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
 Source0:	ftp://ftp.gnutls.org/gcrypt/gnutls/v%{url_ver}/%{name}-%{version}.tar.xz
+Patch0:		gnutls-3.2.1-linkage.patch
 BuildRequires:	liblzo-devel
 BuildRequires:	pkgconfig(libgcrypt)
 BuildRequires:	pkgconfig(libtasn1)
@@ -91,6 +92,7 @@ Locale files for GnuTLS main library.
 
 %prep
 %setup -qn %{name}-%{dirver}
+%patch0 -p0
 
 %build
 %configure2_5x \

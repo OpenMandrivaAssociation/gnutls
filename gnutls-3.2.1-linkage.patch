@@ -1,0 +1,22 @@
+--- lib/Makefile.am~	2013-06-01 02:58:51.000000000 +0800
++++ lib/Makefile.am	2013-06-02 23:54:02.878409183 +0800
+@@ -140,7 +140,7 @@
+ endif
+ 
+ if ENABLE_NETTLE
+-thirdparty_libadd += $(NETTLE_LIBS) $(HOGWEED_LIBS)
++thirdparty_libadd += $(NETTLE_LIBS) $(HOGWEED_LIBS) -lgmp
+ libgnutls_la_LIBADD += nettle/libcrypto.la
+ endif
+ 
+--- lib/Makefile.in~	2013-06-01 19:11:18.000000000 +0800
++++ lib/Makefile.in	2013-06-02 23:54:24.519032090 +0800
+@@ -84,7 +84,7 @@
+ @HAVE_LD_VERSION_SCRIPT_FALSE@am__append_10 = -export-symbols-regex '^(gnutls|_gnutls).*'
+ @ENABLE_MINITASN1_TRUE@am__append_11 = minitasn1/libminitasn1.la
+ @ENABLE_MINITASN1_FALSE@am__append_12 = $(LIBTASN1_LIBS)
+-@ENABLE_NETTLE_TRUE@am__append_13 = $(NETTLE_LIBS) $(HOGWEED_LIBS)
++@ENABLE_NETTLE_TRUE@am__append_13 = $(NETTLE_LIBS) $(HOGWEED_LIBS) -lgmp
+ @ENABLE_NETTLE_TRUE@am__append_14 = nettle/libcrypto.la
+ @HAVE_LD_OUTPUT_DEF_TRUE@am__append_15 = -Wl,--output-def,libgnutls-$(DLL_VERSION).def
+ @HAVE_LD_OUTPUT_DEF_TRUE@am__append_16 = $(defexec_DATA)
