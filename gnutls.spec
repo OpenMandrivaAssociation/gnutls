@@ -13,7 +13,7 @@
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	3.2.1
-Release:	1
+Release:	2
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
@@ -24,6 +24,7 @@ BuildRequires:	pkgconfig(libgcrypt)
 BuildRequires:	pkgconfig(libtasn1)
 BuildRequires:	pkgconfig(p11-kit-1)
 BuildRequires:	pkgconfig(nettle)
+BuildRequires:	pkgconfig(libidn)
 %ifnarch %{arm} %{mips}
 BuildRequires:	valgrind
 %endif
@@ -98,12 +99,7 @@ Locale files for GnuTLS main library.
 %configure2_5x \
 	--disable-static \
 	--with-included-libtasn1=no \
-	--with-included-libcfg=yes \
-	--with-lzo \
 	--with-libz-prefix=%{_prefix} \
-	--with-libgcrypt \
-	--with-libgcrypt-prefix=%{_prefix} \
-	--with-libtasn1-prefix=%{_prefix} \
 %ifnarch %{arm} %{mips}
 	--enable-valgrind-tests \
 %endif
