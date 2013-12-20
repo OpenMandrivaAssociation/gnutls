@@ -12,20 +12,26 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.2.1
-Release:	7
+Version:	3.2.7
+Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
 Source0:	ftp://ftp.gnutls.org/gcrypt/gnutls/v%{url_ver}/%{name}-%{version}.tar.xz
-Patch0:		gnutls-3.2.1-linkage.patch
+Patch1:		gnutls-3.2.7-rpath.patch
+Patch2:		gnutls-3.2.7-asm.patch
+# Use only FIPS approved ciphers in the FIPS mode
+Patch7:		gnutls-2.12.21-fips-algorithms.patch
+Patch8:		gnutls-3.1.11-nosrp.patch
+Patch9:		gnutls-3.2.7-suiteb.patch
+
 BuildRequires:	liblzo-devel
 BuildRequires:	pkgconfig(libgcrypt)
 BuildRequires:	pkgconfig(libtasn1)
 BuildRequires:	pkgconfig(p11-kit-1)
 BuildRequires:	pkgconfig(nettle)
 BuildRequires:	pkgconfig(libidn)
-%ifnarch %{arm} %{mips}
+%ifnarch %{arm} %{mips} aarch64
 BuildRequires:	valgrind
 %endif
 
@@ -93,14 +99,25 @@ Locale files for GnuTLS main library.
 
 %prep
 %setup -qn %{name}-%{dirver}
-%patch0 -p0
+%patch1 -p1 -b .rpath
+%patch2 -p1 -b .asm
+# This patch is not applicable as we use nettle now but some parts will be
+# later reused.
+#%patch7 -p1 -b .fips
+%patch8 -p1 -b .nosrp
+%patch9 -p1 -b .suiteb
+
+sed 's/gnutls_srp.c//g' -i lib/Makefile.in
+sed 's/gnutls_srp.lo//g' -i lib/Makefile.in
+
 
 %build
 %configure2_5x \
 	--disable-static \
 	--with-included-libtasn1=no \
+	--disable-srp-authentication \
 	--with-libz-prefix=%{_prefix} \
-%ifnarch %{arm} %{mips}
+%ifnarch %{arm} %{mips} aarch64
 	--enable-valgrind-tests \
 %endif
 	--disable-rpath \
@@ -121,6 +138,7 @@ Locale files for GnuTLS main library.
 %{_bindir}/[cgs]*
 %{_bindir}/danetool
 %{_bindir}/psktool
+%{_bindir}/tpmtool
 %{_bindir}/p11tool
 %{_bindir}/ocsptool
 %{_mandir}/man?/*
