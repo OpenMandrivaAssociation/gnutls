@@ -138,7 +138,6 @@ sed 's/gnutls_srp.lo//g' -i lib/Makefile.in
 %{_bindir}/[cgs]*
 %{_bindir}/danetool
 %{_bindir}/psktool
-%{_bindir}/tpmtool
 %{_bindir}/p11tool
 %{_bindir}/ocsptool
 %{_mandir}/man?/*
