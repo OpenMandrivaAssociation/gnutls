@@ -12,18 +12,16 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.2.7
-Release:	2
+Version:	3.2.10
+Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
 Source0:	ftp://ftp.gnutls.org/gcrypt/gnutls/v%{url_ver}/%{name}-%{version}.tar.xz
 Patch1:		gnutls-3.2.7-rpath.patch
-Patch2:		gnutls-3.2.7-asm.patch
 # Use only FIPS approved ciphers in the FIPS mode
 Patch7:		gnutls-2.12.21-fips-algorithms.patch
 Patch8:		gnutls-3.1.11-nosrp.patch
-Patch9:		gnutls-3.2.7-suiteb.patch
 
 BuildRequires:	liblzo-devel
 BuildRequires:	pkgconfig(libgcrypt)
