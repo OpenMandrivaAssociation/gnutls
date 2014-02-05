@@ -13,7 +13,7 @@
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	3.2.10
-Release:	1
+Release:	2
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
@@ -22,6 +22,7 @@ Patch1:		gnutls-3.2.7-rpath.patch
 # Use only FIPS approved ciphers in the FIPS mode
 Patch7:		gnutls-2.12.21-fips-algorithms.patch
 Patch8:		gnutls-3.1.11-nosrp.patch
+Patch10:	gnutls-3.2.10-supported-ecc.patch
 
 BuildRequires:	liblzo-devel
 BuildRequires:	pkgconfig(libgcrypt)
@@ -98,12 +99,11 @@ Locale files for GnuTLS main library.
 %prep
 %setup -qn %{name}-%{dirver}
 %patch1 -p1 -b .rpath
-%patch2 -p1 -b .asm
 # This patch is not applicable as we use nettle now but some parts will be
 # later reused.
 #%patch7 -p1 -b .fips
 %patch8 -p1 -b .nosrp
-%patch9 -p1 -b .suiteb
+%patch10 -p1 -b .ecc
 
 sed 's/gnutls_srp.c//g' -i lib/Makefile.in
 sed 's/gnutls_srp.lo//g' -i lib/Makefile.in
@@ -118,6 +118,7 @@ sed 's/gnutls_srp.lo//g' -i lib/Makefile.in
 %ifnarch %{arm} %{mips} aarch64
 	--enable-valgrind-tests \
 %endif
+	--disable-non-suiteb-curves \
 	--disable-rpath \
 	--disable-guile
 
