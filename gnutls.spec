@@ -22,7 +22,6 @@ Patch1:		gnutls-3.2.7-rpath.patch
 # Use only FIPS approved ciphers in the FIPS mode
 Patch7:		gnutls-2.12.21-fips-algorithms.patch
 Patch8:		gnutls-3.1.11-nosrp.patch
-Patch10:	gnutls-3.2.10-supported-ecc.patch
 
 BuildRequires:	liblzo-devel
 BuildRequires:	pkgconfig(libgcrypt)
@@ -103,7 +102,6 @@ Locale files for GnuTLS main library.
 # later reused.
 #%patch7 -p1 -b .fips
 %patch8 -p1 -b .nosrp
-%patch10 -p1 -b .ecc
 
 sed 's/gnutls_srp.c//g' -i lib/Makefile.in
 sed 's/gnutls_srp.lo//g' -i lib/Makefile.in
