@@ -12,7 +12,7 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.2.12.1
+Version:	3.2.13
 Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
@@ -23,7 +23,7 @@ Patch1:		gnutls-3.2.7-rpath.patch
 Patch7:		gnutls-2.12.21-fips-algorithms.patch
 Patch8:		gnutls-3.1.11-nosrp.patch
 
-BuildRequires:	liblzo-devel
+BuildRequires:	lzo-devel
 BuildRequires:	pkgconfig(libgcrypt)
 BuildRequires:	pkgconfig(libtasn1)
 BuildRequires:	pkgconfig(p11-kit-1)
