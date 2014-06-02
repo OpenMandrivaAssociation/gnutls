@@ -3,6 +3,7 @@ removed_sources:
   gnutls-3.2.1.tar.xz: 477118eaffb8f16bd7fd511069c2c5d618f6e400
   gnutls-3.2.10.tar.xz: 043d496770322b8d3af3ac4b94642a4770bd5a87
   gnutls-3.2.12.1.tar.xz: 5ad26522ec18d6b54a17ff8d1d5b69bf2cd5c7ce
+  gnutls-3.2.13.tar.xz: c4a95902bb67df46e9b2c08d4c10523db94e2736
   gnutls-3.2.7.tar.xz: 8c86048e7c01abb25f9285188d629f1f0f2bc6be
 sources:
-  gnutls-3.2.13.tar.xz: c4a95902bb67df46e9b2c08d4c10523db94e2736
+  gnutls-3.2.15.tar.xz: 31f289b48b0bf054f5f8c16d3b878615d0ae06fc
