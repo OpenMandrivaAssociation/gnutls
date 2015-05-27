@@ -1,16 +1,17 @@
 %define url_ver %(echo %{version}|cut -d. -f1,2)
 %define dirver %(echo %{version}|cut -d. -f1,2,3)
 
-%define major 28
+%define major 30
+%define xxmajor 28
 %define sslmajor 27
 %define libname %mklibname %{name} %{major}
-%define libnamexx %mklibname %{name}xx %{major}
+%define libnamexx %mklibname %{name}xx %{xxmajor}
 %define libssl %mklibname %{name}-openssl %{sslmajor}
 %define devname %mklibname %{name} -d
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.3.13
+Version:	3.4.1
 Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
@@ -101,6 +102,7 @@ sed 's/gnutls_srp.lo//g' -i lib/Makefile.in
 	--with-included-libtasn1=no \
 	--disable-srp-authentication \
 	--with-libz-prefix=%{_prefix} \
+	--enable-openssl-compatibility \
 %ifnarch %{arm} %{mips} aarch64
 	--enable-valgrind-tests \
 %endif
@@ -133,7 +135,7 @@ sed 's/gnutls_srp.lo//g' -i lib/Makefile.in
 %{_libdir}/libgnutls.so.%{major}*
 
 %files -n %{libnamexx}
-%{_libdir}/libgnutlsxx.so.%{major}*
+%{_libdir}/libgnutlsxx.so.%{xxmajor}*
 
 %files -n %{libssl}
 %{_libdir}/libgnutls-openssl.so.%{sslmajor}*
