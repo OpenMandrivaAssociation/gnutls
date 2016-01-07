@@ -1,2 +1,4 @@
-sources:
+removed_sources:
   gnutls-3.4.1.tar.xz: 64b9c58e087df3fcbe464d2ceef18a8416c364d4
+sources:
+  gnutls-3.4.7.tar.xz: d5fed5acf91e6e571c50e11354044fbef38de006
