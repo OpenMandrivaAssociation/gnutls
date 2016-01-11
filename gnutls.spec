@@ -3,16 +3,14 @@
 
 %define major 28
 %define sslmajor 27
-%define xsslmajor 0
 %define libname %mklibname %{name} %{major}
 %define libnamexx %mklibname %{name}xx %{major}
 %define libssl %mklibname %{name}-openssl %{sslmajor}
-%define libxssl %mklibname %{name}-xssl %{xsslmajor}
 %define devname %mklibname %{name} -d
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.2.20
+Version:	3.3.20
 Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
@@ -64,14 +62,6 @@ Obsoletes:	%{_lib}gnutls-ssl27 < 3.1.9.1-3
 %description -n	%{libssl}
 This package contains a shared library for %{name}.
 
-%package -n	%{libxssl}
-Summary:	Library providing a secure layer (SSL)
-Group:		System/Libraries
-Requires:	%{libname} = %{version}
-
-%description -n	%{libxssl}
-This package contains a shared library for %{name}.
-
 %package -n	%{devname}
 Summary:	Development files for %{name}
 Group:		Development/C
@@ -79,7 +69,6 @@ Requires:	%{name} = %{version}-%{release}
 Requires:	%{libname} = %{version}-%{release}
 Requires:	%{libnamexx} = %{version}-%{release}
 Requires:	%{libssl} = %{version}-%{release}
-Requires:	%{libxssl} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 
 %description -n	%{devname}
@@ -133,7 +122,6 @@ sed 's/gnutls_srp.lo//g' -i lib/Makefile.in
 %files
 %doc NEWS README
 %{_bindir}/[cgs]*
-%{_bindir}/danetool
 %{_bindir}/psktool
 %{_bindir}/p11tool
 %{_bindir}/ocsptool
@@ -150,9 +138,6 @@ sed 's/gnutls_srp.lo//g' -i lib/Makefile.in
 
 %files -n %{libssl}
 %{_libdir}/libgnutls-openssl.so.%{sslmajor}*
-
-%files -n %{libxssl}
-%{_libdir}/libgnutls-xssl.so.%{xsslmajor}*
 
 %files -n %{devname}
 %{_libdir}/*.so
