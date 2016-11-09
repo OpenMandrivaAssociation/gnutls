@@ -11,7 +11,7 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.4.15
+Version:	3.4.16
 Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
@@ -144,4 +144,3 @@ sed 's/gnutls_srp.lo//g' -i lib/Makefile.in
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
 %{_includedir}/gnutls
-
