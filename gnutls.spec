@@ -11,13 +11,14 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.5.11
+Version:	3.6.0
 Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
 Source0:	ftp://ftp.gnutls.org/gcrypt/gnutls/v%{url_ver}/%{name}-%{version}.tar.xz
 Patch1:		gnutls-3.2.7-rpath.patch
+Patch2:		gnutls-3.6.0-clang.patch
 # Use only FIPS approved ciphers in the FIPS mode
 Patch7:		gnutls-2.12.21-fips-algorithms.patch
 
@@ -87,10 +88,11 @@ Locale files for GnuTLS main library.
 
 %prep
 %setup -qn %{name}-%{dirver}
-%patch1 -p1 -b .rpath
+%patch1 -p1 -b .rpath~
+%patch2 -p1 -b .clang~
 # This patch is not applicable as we use nettle now but some parts will be
 # later reused.
-#%patch7 -p1 -b .fips
+#%patch7 -p1 -b .fips~
 
 sed 's/gnutls_srp.c//g' -i lib/Makefile.in
 sed 's/gnutls_srp.lo//g' -i lib/Makefile.in
