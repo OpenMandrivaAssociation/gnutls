@@ -124,7 +124,7 @@ sed 's/gnutls_srp.lo//g' -i lib/Makefile.in
 %find_lang %{name}
 
 %files
-%doc NEWS README.md
+%doc %{_docdir}/%{name}
 %{_bindir}/[cgs]*
 %{_bindir}/psktool
 %{_bindir}/p11tool
