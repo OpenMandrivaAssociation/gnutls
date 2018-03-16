@@ -13,7 +13,7 @@
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	3.6.2
-Release:	1
+Release:	2
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
@@ -84,7 +84,7 @@ Group:		System/Internationalization
 BuildArch:	noarch
 Conflicts:	%{mklibname gnutls 28} <= 3.1.9.1-1
 
-%description
+%description locales
 Locale files for GnuTLS main library.
 
 %prep
