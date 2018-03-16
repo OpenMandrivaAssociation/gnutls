@@ -25,6 +25,7 @@ Patch7:		gnutls-2.12.21-fips-algorithms.patch
 
 BuildRequires:	libunistring-devel
 BuildRequires:	lzo-devel
+BuildRequires:	gmp-devel
 BuildRequires:	pkgconfig(libgcrypt)
 BuildRequires:	pkgconfig(libtasn1)
 BuildRequires:	pkgconfig(p11-kit-1)
