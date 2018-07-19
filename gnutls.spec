@@ -12,8 +12,8 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.6.2
-Release:	2
+Version:	3.6.3
+Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
@@ -39,7 +39,7 @@ BuildRequires:	valgrind
 GnuTLS is a project that aims to develop a library which provides 
 a secure layer, over a reliable transport layer.
 
-%package -n	%{libname}
+%package -n %{libname}
 Summary:	Library providing a secure layer (SSL)
 Group:		System/Libraries
 Suggests:	%{name}-locales = %{version}-%{release}
@@ -47,26 +47,26 @@ Suggests:	%{name}-locales = %{version}-%{release}
 Conflicts:	lib%{name}%{major} < %{version}
 %endif
 
-%description -n	%{libname}
+%description -n %{libname}
 This package contains a shared library for %{name}.
 
-%package -n	%{libnamexx}
+%package -n %{libnamexx}
 Summary:	Library providing a secure layer (SSL)
 Group:		System/Libraries
 Conflicts:	%{_lib}gnutls28 < 3.1.9.1-3
 
-%description -n	%{libnamexx}
+%description -n %{libnamexx}
 This package contains a shared library for %{name}.
 
-%package -n	%{libssl}
+%package -n %{libssl}
 Summary:	Library providing a secure layer (SSL)
 Group:		System/Libraries
 Obsoletes:	%{_lib}gnutls-ssl27 < 3.1.9.1-3
 
-%description -n	%{libssl}
+%description -n %{libssl}
 This package contains a shared library for %{name}.
 
-%package -n	%{devname}
+%package -n %{devname}
 Summary:	Development files for %{name}
 Group:		Development/C
 Requires:	%{name} = %{version}-%{release}
@@ -75,7 +75,7 @@ Requires:	%{libnamexx} = %{version}-%{release}
 Requires:	%{libssl} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 
-%description -n	%{devname}
+%description -n %{devname}
 This package contains all necessary files to compile or develop
 programs/libraries that use %{name}.
 
