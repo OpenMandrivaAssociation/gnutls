@@ -22,7 +22,7 @@ Patch1:		gnutls-3.2.7-rpath.patch
 Patch2:		gnutls-3.6.0-clang.patch
 # Use only FIPS approved ciphers in the FIPS mode
 Patch7:		gnutls-2.12.21-fips-algorithms.patch
-
+%if 0
 BuildRequires:	libunistring-devel
 BuildRequires:	lzo-devel
 BuildRequires:	gmp-devel
@@ -30,9 +30,10 @@ BuildRequires:	pkgconfig(libgcrypt)
 BuildRequires:	pkgconfig(libtasn1)
 BuildRequires:	pkgconfig(p11-kit-1)
 BuildRequires:	pkgconfig(nettle)
-BuildRequires:	pkgconfig(libidn)
+BuildRequires:	pkgconfig(libidn2)
 %ifnarch %{arm} %{mips} aarch64
 BuildRequires:	valgrind
+%endif
 %endif
 
 %description
