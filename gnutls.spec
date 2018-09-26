@@ -12,17 +12,16 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.6.3
+Version:	3.6.4
 Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
 Source0:	ftp://ftp.gnutls.org/gcrypt/gnutls/v%{url_ver}/%{name}-%{version}.tar.xz
 Patch1:		gnutls-3.2.7-rpath.patch
-Patch2:		gnutls-3.6.0-clang.patch
+Patch2:		gnutls-3.6.4-clang.patch
 # Use only FIPS approved ciphers in the FIPS mode
 Patch7:		gnutls-2.12.21-fips-algorithms.patch
-%if 0
 BuildRequires:	libunistring-devel
 BuildRequires:	lzo-devel
 BuildRequires:	gmp-devel
@@ -33,7 +32,6 @@ BuildRequires:	pkgconfig(nettle)
 BuildRequires:	pkgconfig(libidn2)
 %ifnarch %{arm} %{mips} aarch64
 BuildRequires:	valgrind
-%endif
 %endif
 
 %description

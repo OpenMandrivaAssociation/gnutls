@@ -1,0 +1,48 @@
+diff -ur gnutls-3.6.4/gl/intprops.h gnutls-3.6.4.new/gl/intprops.h
+--- gnutls-3.6.4/gl/intprops.h	2018-06-16 14:34:47.000000000 +0100
++++ gnutls-3.6.4.new/gl/intprops.h	2018-09-26 12:12:10.421318048 +0100
+@@ -226,7 +226,7 @@
+ #endif
+ 
+ /* True if __builtin_add_overflow_p (A, B, C) works.  */
+-#define _GL_HAS_BUILTIN_OVERFLOW_P (7 <= __GNUC__)
++#define _GL_HAS_BUILTIN_OVERFLOW_P (7 <= __GNUC__ && !defined(__clang__))
+ 
+ /* The _GL*_OVERFLOW macros have the same restrictions as the
+    *_RANGE_OVERFLOW macros, except that they do not assume that operands
+diff -ur gnutls-3.6.4/lib/gnutls_int.h gnutls-3.6.4.new/lib/gnutls_int.h
+--- gnutls-3.6.4/lib/gnutls_int.h	2018-09-23 07:33:07.000000000 +0100
++++ gnutls-3.6.4.new/lib/gnutls_int.h	2018-09-26 12:03:56.949474508 +0100
+@@ -70,7 +70,7 @@
+ #define likely(x)      __builtin_expect((x), 1)
+ #define unlikely(x)    __builtin_expect((x), 0)
+ #endif
+-#if _GNUTLS_GCC_VERSION >= 70100
++#if _GNUTLS_GCC_VERSION >= 70100 && !defined(__clang__)
+ #define FALLTHROUGH      __attribute__ ((fallthrough))
+ #endif
+ #endif
+diff -ur gnutls-3.6.4/src/gl/intprops.h gnutls-3.6.4.new/src/gl/intprops.h
+--- gnutls-3.6.4/src/gl/intprops.h	2018-06-16 14:35:18.000000000 +0100
++++ gnutls-3.6.4.new/src/gl/intprops.h	2018-09-26 12:00:53.915699240 +0100
+@@ -226,7 +226,7 @@
+ #endif
+ 
+ /* True if __builtin_add_overflow_p (A, B, C) works.  */
+-#define _GL_HAS_BUILTIN_OVERFLOW_P (7 <= __GNUC__)
++#define _GL_HAS_BUILTIN_OVERFLOW_P (7 <= __GNUC__ && !defined(__clang__))
+ 
+ /* The _GL*_OVERFLOW macros have the same restrictions as the
+    *_RANGE_OVERFLOW macros, except that they do not assume that operands
+diff -ur gnutls-3.6.4/src/gl/xalloc-oversized.h gnutls-3.6.4.new/src/gl/xalloc-oversized.h
+--- gnutls-3.6.4/src/gl/xalloc-oversized.h	2018-06-16 14:35:19.000000000 +0100
++++ gnutls-3.6.4.new/src/gl/xalloc-oversized.h	2018-09-26 12:00:31.002884536 +0100
+@@ -41,7 +41,7 @@
+    positive and N must be nonnegative.  This is a macro, not a
+    function, so that it works correctly even when SIZE_MAX < N.  */
+ 
+-#if 7 <= __GNUC__
++#if 7 <= __GNUC__ && !defined(__clang__)
+ # define xalloc_oversized(n, s) \
+    __builtin_mul_overflow_p (n, s, (__xalloc_count_type) 1)
+ #elif 5 <= __GNUC__ && !defined __ICC && !__STRICT_ANSI__
