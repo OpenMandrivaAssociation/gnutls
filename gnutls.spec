@@ -12,7 +12,7 @@
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	3.6.5
-Release:	1
+Release:	0.1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
@@ -85,7 +85,8 @@ Conflicts:	%{mklibname gnutls 28} <= 3.1.9.1-1
 Locale files for GnuTLS main library.
 
 %prep
-%autosetup -n %{name}-%{dirver} -p1
+%setup -qn %{name}-%{dirver}
+%apply_patches
 
 rm -f lib/minitasn1/*.c lib/minitasn1/*.h
 rm -f src/libopts/*.c src/libopts/*.h src/libopts/compat/*.c src/libopts/compat/*.h
@@ -106,13 +107,13 @@ echo "SYSTEM=NORMAL" >> tests/system.prio
 	--disable-guile \
 	--with-default-priority-string="@SYSTEM"
 
-%make_build
+%make
 
 %check
 #make check
 
 %install
-%make_install
+%makeinstall_std
 
 %find_lang %{name}
 
