@@ -5,10 +5,8 @@
 
 %define major 30
 %define xxmajor 28
-%define sslmajor 27
 %define libname %mklibname %{name} %{major}
 %define libnamexx %mklibname %{name}xx %{xxmajor}
-%define libssl %mklibname %{name}-openssl %{sslmajor}
 %define devname %mklibname %{name} -d
 
 Summary:	Library providing a secure layer (SSL)
@@ -22,7 +20,7 @@ Source0:	ftp://ftp.gnutls.org/gcrypt/gnutls/v%{url_ver}/%{name}-%{version}.tar.x
 Patch1:		gnutls-3.2.7-rpath.patch
 Patch2:		gnutls-3.6.4-clang.patch
 # Use only FIPS approved ciphers in the FIPS mode
-Patch7:		gnutls-2.12.21-fips-algorithms.patch
+#Patch7:		gnutls-2.12.21-fips-algorithms.patch
 BuildRequires:	bison
 BuildRequires:	byacc
 BuildRequires:	libunistring-devel
@@ -52,6 +50,7 @@ Suggests:	%{name}-locales = %{version}-%{release}
 %if "%{_lib}" == "lib64"
 Conflicts:	lib%{name}%{major} < %{version}
 %endif
+Obsoletes:	%{mklibname %{name}-openssl 27} < 3.6.5
 
 %description -n %{libname}
 This package contains a shared library for %{name}.
@@ -64,21 +63,12 @@ Conflicts:	%{_lib}gnutls28 < 3.1.9.1-3
 %description -n %{libnamexx}
 This package contains a shared library for %{name}.
 
-%package -n %{libssl}
-Summary:	Library providing a secure layer (SSL)
-Group:		System/Libraries
-Obsoletes:	%{_lib}gnutls-ssl27 < 3.1.9.1-3
-
-%description -n %{libssl}
-This package contains a shared library for %{name}.
-
 %package -n %{devname}
 Summary:	Development files for %{name}
 Group:		Development/C
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{libname} = %{version}-%{release}
 Requires:	%{libnamexx} = %{version}-%{release}
-Requires:	%{libssl} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 
 %description -n %{devname}
@@ -95,12 +85,7 @@ Conflicts:	%{mklibname gnutls 28} <= 3.1.9.1-1
 Locale files for GnuTLS main library.
 
 %prep
-%setup -qn %{name}-%{dirver}
-%patch1 -p1 -b .rpath~
-%patch2 -p1 -b .clang~
-# This patch is not applicable as we use nettle now but some parts will be
-# later reused.
-#%patch7 -p1 -b .fips~
+%autosetup -n %{name}-%{dirver} -p1
 
 rm -f lib/minitasn1/*.c lib/minitasn1/*.h
 rm -f src/libopts/*.c src/libopts/*.h src/libopts/compat/*.c src/libopts/compat/*.h
@@ -121,13 +106,13 @@ echo "SYSTEM=NORMAL" >> tests/system.prio
 	--disable-guile \
 	--with-default-priority-string="@SYSTEM"
 
-%make
+%make_build
 
 %check
 #make check
 
 %install
-%makeinstall_std
+%make_install
 
 %find_lang %{name}
 
@@ -147,9 +132,6 @@ echo "SYSTEM=NORMAL" >> tests/system.prio
 
 %files -n %{libnamexx}
 %{_libdir}/libgnutlsxx.so.%{xxmajor}*
-
-%files -n %{libssl}
-%{_libdir}/libgnutls-openssl.so.%{sslmajor}*
 
 %files -n %{devname}
 %{_libdir}/*.so
