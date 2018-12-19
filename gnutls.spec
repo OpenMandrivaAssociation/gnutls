@@ -1,6 +1,7 @@
 %define url_ver %(echo %{version}|cut -d. -f1,2)
 %define dirver %(echo %{version}|cut -d. -f1,2,3)
 %define _disable_rebuild_configure 1
+%global optflags %{optflags} -Ofast
 
 %define major 30
 %define xxmajor 28
@@ -12,8 +13,8 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.6.4
-Release:	2
+Version:	3.6.5
+Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
@@ -22,17 +23,23 @@ Patch1:		gnutls-3.2.7-rpath.patch
 Patch2:		gnutls-3.6.4-clang.patch
 # Use only FIPS approved ciphers in the FIPS mode
 Patch7:		gnutls-2.12.21-fips-algorithms.patch
+BuildRequires:	bison
+BuildRequires:	byacc
 BuildRequires:	libunistring-devel
-BuildRequires:	lzo-devel
+BuildRequires:	pkgconfig(lzo2)
 BuildRequires:	gmp-devel
+BuildRequires:	gettext-devel
 BuildRequires:	pkgconfig(libgcrypt)
 BuildRequires:	pkgconfig(libtasn1)
 BuildRequires:	pkgconfig(p11-kit-1)
 BuildRequires:	pkgconfig(nettle)
 BuildRequires:	pkgconfig(libidn2)
+BuildRequires:	pkgconfig(libseccomp)
 %ifnarch %{arm} %{mips} aarch64
 BuildRequires:	valgrind
 %endif
+BuildRequires:	autogen
+BuildRequires:	pkgconfig(autoopts)
 
 %description
 GnuTLS is a project that aims to develop a library which provides 
@@ -95,22 +102,24 @@ Locale files for GnuTLS main library.
 # later reused.
 #%patch7 -p1 -b .fips~
 
-sed 's/gnutls_srp.c//g' -i lib/Makefile.in
-sed 's/gnutls_srp.lo//g' -i lib/Makefile.in
+rm -f lib/minitasn1/*.c lib/minitasn1/*.h
+rm -f src/libopts/*.c src/libopts/*.h src/libopts/compat/*.c src/libopts/compat/*.h
 
+echo "SYSTEM=NORMAL" >> tests/system.prio
 
 %build
 %configure \
 	--with-included-libtasn1=no \
-	--disable-srp-authentication \
-	--with-libz-prefix=%{_prefix} \
-	--enable-openssl-compatibility \
+	--enable-sha1-support \
+	--enable-ssl3-support \
+	--disable-openssl-compatibility \
 %ifnarch %{arm} %{mips} aarch64
 	--enable-valgrind-tests \
 %endif
 	--disable-non-suiteb-curves \
 	--disable-rpath \
-	--disable-guile
+	--disable-guile \
+	--with-default-priority-string="@SYSTEM"
 
 %make
 
