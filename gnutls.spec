@@ -1,7 +1,7 @@
 %define url_ver %(echo %{version}|cut -d. -f1,2)
 %define dirver %(echo %{version}|cut -d. -f1,2,3)
 %define _disable_rebuild_configure 1
-%global optflags %{optflags} -Ofast
+%global optflags %{optflags} -O3
 
 %define major 30
 %define xxmajor 28
@@ -12,7 +12,7 @@
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	3.6.5
-Release:	2
+Release:	3
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
