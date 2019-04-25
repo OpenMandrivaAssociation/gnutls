@@ -9,9 +9,16 @@
 %define libnamexx %mklibname %{name}xx %{xxmajor}
 %define devname %mklibname %{name} -d
 
+# (tpg) enable PGO build
+%ifnarch riscv64
+%bcond_without pgo
+%else
+%bcond_with pgo
+%endif
+
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.6.7
+Version:	3.6.7.1
 Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
@@ -93,6 +100,40 @@ rm -f src/libopts/*.c src/libopts/*.h src/libopts/compat/*.c src/libopts/compat/
 echo "SYSTEM=NORMAL" >> tests/system.prio
 
 %build
+%if %{with pgo}
+export LLVM_PROFILE_FILE=%{name}-%p.profile.d
+export LD_LIBRARY_PATH="$(pwd)"
+CFLAGS="%{optflags} -fprofile-instr-generate" \
+CXXFLAGS="%{optflags} -fprofile-instr-generate" \
+FFLAGS="$CFLAGS" \
+FCFLAGS="$CFLAGS" \
+LDFLAGS="%{ldflags} -fprofile-instr-generate" \
+%configure \
+	--with-included-libtasn1=no \
+	--enable-sha1-support \
+	--enable-ssl3-support \
+	--disable-openssl-compatibility \
+%ifnarch %{arm} %{mips} aarch64
+	--enable-valgrind-tests \
+%endif
+	--disable-non-suiteb-curves \
+	--disable-rpath \
+	--disable-guile \
+	--with-default-priority-string="@SYSTEM"
+
+%make_build
+make check
+
+unset LD_LIBRARY_PATH
+unset LLVM_PROFILE_FILE
+llvm-profdata merge --output=%{name}.profile *.profile.d
+
+make clean
+
+CFLAGS="%{optflags} -fprofile-instr-use=$(realpath %{name}.profile)" \
+CXXFLAGS="%{optflags} -fprofile-instr-use=$(realpath %{name}.profile)" \
+LDFLAGS="%{ldflags} -fprofile-instr-use=$(realpath %{name}.profile)" \
+%endif
 %configure \
 	--with-included-libtasn1=no \
 	--enable-sha1-support \
@@ -109,7 +150,7 @@ echo "SYSTEM=NORMAL" >> tests/system.prio
 %make_build
 
 %check
-#make check
+make check
 
 %install
 %make_install
