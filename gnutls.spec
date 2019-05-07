@@ -10,11 +10,9 @@
 %define devname %mklibname %{name} -d
 
 # (tpg) enable PGO build
-%ifnarch riscv64
-%bcond_without pgo
-%else
+# # (tpg) 2019-05-07
+# __llvm_profile_register_write_file_atexit: error: undefined reference to 'atexit'
 %bcond_with pgo
-%endif
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
@@ -101,10 +99,6 @@ echo "SYSTEM=NORMAL" >> tests/system.prio
 
 %build
 %if %{with pgo}
-# (tpg) 2019-05-07
-# __llvm_profile_register_write_file_atexit: error: undefined reference to 'atexit'
-sed -i -e 's/-nostdlib//g' m4/libtool.m4
-
 export LLVM_PROFILE_FILE=%{name}-%p.profile.d
 export LD_LIBRARY_PATH="$(pwd)"
 CFLAGS="%{optflags} -fprofile-instr-generate" \
