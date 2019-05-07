@@ -38,7 +38,7 @@ BuildRequires:	pkgconfig(p11-kit-1)
 BuildRequires:	pkgconfig(nettle)
 BuildRequires:	pkgconfig(libidn2)
 BuildRequires:	pkgconfig(libseccomp)
-%ifnarch %{arm} %{mips} aarch64
+%ifnarch %{armx} %{mips} %{riscv}
 BuildRequires:	valgrind
 %endif
 BuildRequires:	autogen
