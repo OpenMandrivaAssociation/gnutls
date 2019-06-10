@@ -107,7 +107,7 @@ echo "SYSTEM=NORMAL" >> tests/system.prio
 	--disable-guile \
 	--with-default-priority-string="@SYSTEM"
 
-%make
+%make LIBS=-ldl
 
 %check
 #make check
