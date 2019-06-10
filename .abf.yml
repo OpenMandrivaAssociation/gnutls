@@ -1,5 +1,6 @@
 removed_sources:
   gnutls-3.6.5.tar.xz: 749fcaba23f63b523ec2ad262caeca6f1e62fc6f
   gnutls-3.6.6.tar.xz: d094f3c554b40d76dac2d2d75a8a141c008dc6c4
-sources:
   gnutls-3.6.7.tar.xz: 71f73b9829e44c947bb668b25b8b2e594a065345
+sources:
+  gnutls-3.6.8.tar.xz: e1243188791af409bca118d31faf3ec3d5f0a5ab
