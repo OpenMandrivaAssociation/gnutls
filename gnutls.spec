@@ -145,7 +145,7 @@ LDFLAGS="%{ldflags} -fprofile-instr-use=$(realpath %{name}.profile)" \
 	--disable-guile \
 	--with-default-priority-string="@SYSTEM"
 
-%make_build
+%make_build LIBS=-ldl
 
 %check
 make check
