@@ -38,6 +38,7 @@ BuildRequires:	pkgconfig(p11-kit-1)
 BuildRequires:	pkgconfig(nettle)
 BuildRequires:	pkgconfig(libidn2)
 BuildRequires:	pkgconfig(libseccomp)
+BuildRequires:	libatomic-devel
 %ifnarch %{armx} %{mips} %{riscv}
 BuildRequires:	valgrind
 %endif
