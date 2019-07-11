@@ -44,6 +44,9 @@ BuildRequires:	valgrind
 %endif
 BuildRequires:	autogen
 BuildRequires:	pkgconfig(autoopts)
+# (tpg) neeeded for tests
+BuildRequires:	iproute2
+BuildRequires:	net-tools
 
 %description
 GnuTLS is a project that aims to develop a library which provides 
