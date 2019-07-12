@@ -48,6 +48,7 @@ BuildRequires:	pkgconfig(autoopts)
 BuildRequires:	iproute2
 BuildRequires:	net-tools
 BuildRequires:	datefudge
+BuildRequires:	gnupg
 
 %description
 GnuTLS is a project that aims to develop a library which provides 
