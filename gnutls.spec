@@ -49,6 +49,8 @@ BuildRequires:	iproute2
 BuildRequires:	net-tools
 BuildRequires:	datefudge
 BuildRequires:	gnupg
+BuildRequires:	valgrind
+BuildRequires:	diffutils
 
 %description
 GnuTLS is a project that aims to develop a library which provides 
@@ -154,7 +156,7 @@ LDFLAGS="%{ldflags} -fprofile-instr-use=$(realpath %{name}.profile)" \
 %make_build LIBS=-ldl
 
 %check
-make check || cat tests/test-suite.log && exit 1
+make check V=1 || cat tests/test-suite.log && exit 1
 
 %install
 %make_install
