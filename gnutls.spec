@@ -2,8 +2,7 @@
 %define dirver %(echo %{version}|cut -d. -f1,2,3)
 %define _disable_rebuild_configure 1
 
-# (tpg) add -DPURIFY to help valgrind
-%global optflags %{optflags} -O3 -DPURIFY
+%global optflags %{optflags} -O3
 
 %define major 30
 %define xxmajor 28
@@ -41,9 +40,9 @@ BuildRequires:	pkgconfig(nettle)
 BuildRequires:	pkgconfig(libidn2)
 BuildRequires:	pkgconfig(libseccomp)
 BuildRequires:	libatomic-devel
-%ifnarch %{armx} %{mips} %{riscv}
-BuildRequires:	valgrind
-%endif
+#ifnarch %{armx} %{mips} %{riscv}
+#BuildRequires:	valgrind
+#endif
 BuildRequires:	autogen
 BuildRequires:	pkgconfig(autoopts)
 # (tpg) neeeded for tests
@@ -51,7 +50,6 @@ BuildRequires:	iproute2
 BuildRequires:	net-tools
 BuildRequires:	datefudge
 BuildRequires:	gnupg
-BuildRequires:	valgrind
 BuildRequires:	diffutils
 
 %description
@@ -121,9 +119,9 @@ LDFLAGS="%{ldflags} -fprofile-instr-generate" \
 	--enable-sha1-support \
 	--enable-ssl3-support \
 	--disable-openssl-compatibility \
-%ifnarch %{arm} %{mips} aarch64
-	--enable-valgrind-tests \
-%endif
+#ifnarch %{arm} %{mips} aarch64
+#	--enable-valgrind-tests \
+#endif
 	--disable-non-suiteb-curves \
 	--disable-rpath \
 	--disable-guile \
@@ -147,9 +145,9 @@ LDFLAGS="%{ldflags} -fprofile-instr-use=$(realpath %{name}.profile)" \
 	--enable-sha1-support \
 	--enable-ssl3-support \
 	--disable-openssl-compatibility \
-%ifnarch %{arm} %{mips} aarch64
-	--enable-valgrind-tests \
-%endif
+#ifnarch %{arm} %{mips} aarch64
+#	--enable-valgrind-tests \
+#endif
 	--disable-non-suiteb-curves \
 	--disable-rpath \
 	--disable-guile \
