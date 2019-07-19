@@ -11,9 +11,7 @@
 %define devname %mklibname %{name} -d
 
 # (tpg) enable PGO build
-# # (tpg) 2019-05-07
-# __llvm_profile_register_write_file_atexit: error: undefined reference to 'atexit'
-%bcond_with pgo
+%bcond_without pgo
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
@@ -150,7 +148,7 @@ LDFLAGS="%{ldflags} -fprofile-instr-use=$(realpath %{name}.profile)" \
 %make_build LIBS=-ldl
 
 %check
-make check V=1 || cat tests/cert-tests/test-suite.log && cat tests/test-suite.log && exit 1
+make check V=1
 
 %install
 %make_install
