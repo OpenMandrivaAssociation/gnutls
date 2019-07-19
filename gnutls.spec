@@ -156,7 +156,7 @@ LDFLAGS="%{ldflags} -fprofile-instr-use=$(realpath %{name}.profile)" \
 %make_build LIBS=-ldl
 
 %check
-make check V=1 || cat tests/test-suite.log && exit 1
+make check V=1 || cat tests/cert-tests/test-suite.log && cat tests/test-suite.log && exit 1
 
 %install
 %make_install
