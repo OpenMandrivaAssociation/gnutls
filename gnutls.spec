@@ -119,9 +119,6 @@ LDFLAGS="%{ldflags} -fprofile-instr-generate" \
 	--enable-sha1-support \
 	--enable-ssl3-support \
 	--disable-openssl-compatibility \
-#ifnarch %{arm} %{mips} aarch64
-#	--enable-valgrind-tests \
-#endif
 	--disable-non-suiteb-curves \
 	--disable-rpath \
 	--disable-guile \
@@ -145,9 +142,6 @@ LDFLAGS="%{ldflags} -fprofile-instr-use=$(realpath %{name}.profile)" \
 	--enable-sha1-support \
 	--enable-ssl3-support \
 	--disable-openssl-compatibility \
-#ifnarch %{arm} %{mips} aarch64
-#	--enable-valgrind-tests \
-#endif
 	--disable-non-suiteb-curves \
 	--disable-rpath \
 	--disable-guile \
