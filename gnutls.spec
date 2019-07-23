@@ -1,6 +1,7 @@
 %define url_ver %(echo %{version}|cut -d. -f1,2)
 %define dirver %(echo %{version}|cut -d. -f1,2,3)
 %define _disable_rebuild_configure 1
+%define _disable_lto 1
 
 %global optflags %{optflags} -O3 -fuse-ld=bfd
 %global ldflags %{ldflags} -fuse-ld=bfd
