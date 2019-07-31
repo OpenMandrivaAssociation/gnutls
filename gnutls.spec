@@ -105,6 +105,8 @@ rm -f src/libopts/*.c src/libopts/*.h src/libopts/compat/*.c src/libopts/compat/
 echo "SYSTEM=NORMAL" >> tests/system.prio
 
 %build
+autoreconf -fiv
+
 %if %{with pgo}
 export LLVM_PROFILE_FILE=%{name}-%p.profile.d
 export LD_LIBRARY_PATH="$(pwd)"
