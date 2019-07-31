@@ -44,6 +44,7 @@ BuildRequires:	libatomic-devel
 #endif
 BuildRequires:	autogen
 BuildRequires:	pkgconfig(autoopts)
+BuildRequires:	texinfo
 # (tpg) neeeded for tests
 BuildRequires:	iproute2
 BuildRequires:	net-tools
