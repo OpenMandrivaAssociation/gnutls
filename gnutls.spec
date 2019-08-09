@@ -13,6 +13,10 @@
 # (tpg) enable PGO build
 %bcond_without pgo
 
+%ifarch %{ix86}
+%global ldflags %{ldflags} -Wl,-z,notext
+%endif
+
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	3.6.9
