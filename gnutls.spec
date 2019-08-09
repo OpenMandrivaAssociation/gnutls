@@ -115,7 +115,7 @@ CFLAGS="%{optflags} -fprofile-instr-generate" \
 CXXFLAGS="%{optflags} -fprofile-instr-generate" \
 FFLAGS="$CFLAGS" \
 FCFLAGS="$CFLAGS" \
-LDFLAGS="%{ldflags} -fprofile-instr-generate" \
+LDFLAGS="%{ldflags} -fPIC -fprofile-instr-generate" \
 %configure \
 	--with-included-libtasn1=no \
 	--enable-sha1-support \
@@ -137,7 +137,7 @@ make clean
 
 CFLAGS="%{optflags} -fprofile-instr-use=$(realpath %{name}.profile)" \
 CXXFLAGS="%{optflags} -fprofile-instr-use=$(realpath %{name}.profile)" \
-LDFLAGS="%{ldflags} -fprofile-instr-use=$(realpath %{name}.profile)" \
+LDFLAGS="%{ldflags} -fPIC -fprofile-instr-use=$(realpath %{name}.profile)" \
 %endif
 %configure \
 	--with-included-libtasn1=no \
