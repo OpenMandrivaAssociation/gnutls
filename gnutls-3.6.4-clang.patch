@@ -1,7 +1,8 @@
-diff -ur gnutls-3.6.4/gl/intprops.h gnutls-3.6.4.new/gl/intprops.h
---- gnutls-3.6.4/gl/intprops.h	2018-06-16 14:34:47.000000000 +0100
-+++ gnutls-3.6.4.new/gl/intprops.h	2018-09-26 12:12:10.421318048 +0100
-@@ -226,7 +226,7 @@
+diff --git a/gl/intprops.h b/gl/intprops.h
+index 1a44ae5..212c3d3 100644
+--- a/gl/intprops.h
++++ b/gl/intprops.h
+@@ -228,7 +228,7 @@
  #endif
  
  /* True if __builtin_add_overflow_p (A, B, C) works.  */
@@ -10,22 +11,24 @@ diff -ur gnutls-3.6.4/gl/intprops.h gnutls-3.6.4.new/gl/intprops.h
  
  /* The _GL*_OVERFLOW macros have the same restrictions as the
     *_RANGE_OVERFLOW macros, except that they do not assume that operands
-diff -ur gnutls-3.6.4/lib/gnutls_int.h gnutls-3.6.4.new/lib/gnutls_int.h
---- gnutls-3.6.4/lib/gnutls_int.h	2018-09-23 07:33:07.000000000 +0100
-+++ gnutls-3.6.4.new/lib/gnutls_int.h	2018-09-26 12:03:56.949474508 +0100
-@@ -70,7 +70,7 @@
- #define likely(x)      __builtin_expect((x), 1)
- #define unlikely(x)    __builtin_expect((x), 0)
+diff --git a/lib/gnutls_int.h b/lib/gnutls_int.h
+index 179d71b..9b2573f 100644
+--- a/lib/gnutls_int.h
++++ b/lib/gnutls_int.h
+@@ -90,7 +90,7 @@ typedef int ssize_t;
+ # define attr_warn_unused_result
  #endif
+ 
 -#if _GNUTLS_GCC_VERSION >= 70100
 +#if _GNUTLS_GCC_VERSION >= 70100 && !defined(__clang__)
- #define FALLTHROUGH      __attribute__ ((fallthrough))
- #endif
- #endif
-diff -ur gnutls-3.6.4/src/gl/intprops.h gnutls-3.6.4.new/src/gl/intprops.h
---- gnutls-3.6.4/src/gl/intprops.h	2018-06-16 14:35:18.000000000 +0100
-+++ gnutls-3.6.4.new/src/gl/intprops.h	2018-09-26 12:00:53.915699240 +0100
-@@ -226,7 +226,7 @@
+ # define FALLTHROUGH __attribute__ ((fallthrough))
+ #else
+ # define FALLTHROUGH
+diff --git a/src/gl/intprops.h b/src/gl/intprops.h
+index 1a44ae5..212c3d3 100644
+--- a/src/gl/intprops.h
++++ b/src/gl/intprops.h
+@@ -228,7 +228,7 @@
  #endif
  
  /* True if __builtin_add_overflow_p (A, B, C) works.  */
@@ -34,10 +37,11 @@ diff -ur gnutls-3.6.4/src/gl/intprops.h gnutls-3.6.4.new/src/gl/intprops.h
  
  /* The _GL*_OVERFLOW macros have the same restrictions as the
     *_RANGE_OVERFLOW macros, except that they do not assume that operands
-diff -ur gnutls-3.6.4/src/gl/xalloc-oversized.h gnutls-3.6.4.new/src/gl/xalloc-oversized.h
---- gnutls-3.6.4/src/gl/xalloc-oversized.h	2018-06-16 14:35:19.000000000 +0100
-+++ gnutls-3.6.4.new/src/gl/xalloc-oversized.h	2018-09-26 12:00:31.002884536 +0100
-@@ -41,7 +41,7 @@
+diff --git a/src/gl/xalloc-oversized.h b/src/gl/xalloc-oversized.h
+index e3068c8..08b7e1f 100644
+--- a/src/gl/xalloc-oversized.h
++++ b/src/gl/xalloc-oversized.h
+@@ -41,7 +41,7 @@ typedef size_t __xalloc_count_type;
     positive and N must be nonnegative.  This is a macro, not a
     function, so that it works correctly even when SIZE_MAX < N.  */
  
