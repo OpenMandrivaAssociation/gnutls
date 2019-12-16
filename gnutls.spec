@@ -25,11 +25,9 @@ License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
 Source0:	ftp://ftp.gnutls.org/gcrypt/gnutls/v%{url_ver}/%{name}-%{version}.tar.xz
-Patch1:		gnutls-3.2.7-rpath.patch
+Patch0:		https://src.fedoraproject.org/rpms/gnutls/raw/master/f/gnutls-3.2.7-rpath.patch
+Patch1:		https://src.fedoraproject.org/rpms/gnutls/raw/master/f/gnutls-3.6.7-no-now-guile.patch
 Patch2:		gnutls-3.6.4-clang.patch
-Patch3:		gnutls-3.6.8-addmissing-link.patch
-# Use only FIPS approved ciphers in the FIPS mode
-#Patch7:		gnutls-2.12.21-fips-algorithms.patch
 BuildRequires:	bison
 BuildRequires:	byacc
 BuildRequires:	libunistring-devel
