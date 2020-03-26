@@ -20,7 +20,7 @@
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	3.6.12
-Release:	1
+Release:	2
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
@@ -154,14 +154,22 @@ LDFLAGS="%{ldflags} -fPIC -fprofile-instr-use=$(realpath %{name}.profile)" \
 %make_build LIBS=-ldl
 
 %check
-make check V=1
+%make_build check V=1
 
 %install
 %make_install
 
+mkdir -p %{buildroot}%{_sysconfdir}/gnutls
+cat >%{buildroot}%{_sysconfdir}/gnutls/config <<'EOF'
+[priorities]
+SYSTEM = NORMAL:-VERS-TLS1.1:-VERS-TLS1.0
+EOF
+
 %find_lang %{name}
 
 %files
+%dir %{_sysconfdir}/gnutls
+%config(noreplace) %{_sysconfdir}/gnutls/config
 %doc %{_docdir}/%{name}
 %{_bindir}/[cgs]*
 %{_bindir}/psktool
