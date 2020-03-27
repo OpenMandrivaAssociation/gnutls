@@ -20,7 +20,7 @@
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	3.6.12
-Release:	2
+Release:	3
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
@@ -66,6 +66,7 @@ Suggests:	%{name}-locales = %{version}-%{release}
 Conflicts:	lib%{name}%{major} < %{version}
 %endif
 Obsoletes:	%{mklibname %{name}-openssl 27} < 3.6.5
+Requires:	%{name}-config = %{EVRD}
 
 %description -n %{libname}
 This package contains a shared library for %{name}.
@@ -98,6 +99,14 @@ Conflicts:	%{mklibname gnutls 28} <= 3.1.9.1-1
 
 %description locales
 Locale files for GnuTLS main library.
+
+%package config
+Summary:	GnuTLS configuration files
+Group:		System/Libraries
+BuildArch:	noarch
+
+%description config
+GnuTLS configuration files
 
 %prep
 %autosetup -n %{name}-%{dirver} -p1
@@ -169,8 +178,6 @@ EOF
 %find_lang %{name}
 
 %files
-%dir %{_sysconfdir}/gnutls
-%config(noreplace) %{_sysconfdir}/gnutls/config
 %doc %{_docdir}/%{name}
 %{_bindir}/[cgs]*
 %{_bindir}/psktool
@@ -178,6 +185,10 @@ EOF
 %{_bindir}/ocsptool
 %{_mandir}/man?/*
 %{_infodir}/*
+
+%files config
+%dir %{_sysconfdir}/gnutls
+%config(noreplace) %{_sysconfdir}/gnutls/config
 
 %files locales -f %{name}.lang
 
