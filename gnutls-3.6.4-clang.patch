@@ -1,20 +1,18 @@
-diff --git a/gl/intprops.h b/gl/intprops.h
-index 1a44ae5..212c3d3 100644
---- a/gl/intprops.h
-+++ b/gl/intprops.h
-@@ -228,7 +228,7 @@
- #endif
+diff -up gnutls-3.6.13/gl/intprops.h.3~ gnutls-3.6.13/gl/intprops.h
+--- gnutls-3.6.13/gl/intprops.h.3~	2020-05-02 19:29:38.644954190 +0200
++++ gnutls-3.6.13/gl/intprops.h	2020-05-02 19:34:02.497450929 +0200
+@@ -240,7 +240,7 @@
  
- /* True if __builtin_add_overflow_p (A, B, C) works.  */
+ /* True if __builtin_add_overflow_p (A, B, C) works, and similarly for
+    __builtin_mul_overflow_p and __builtin_mul_overflow_p.  */
 -#define _GL_HAS_BUILTIN_OVERFLOW_P (7 <= __GNUC__)
-+#define _GL_HAS_BUILTIN_OVERFLOW_P (7 <= __GNUC__ && !defined(__clang__))
++#define _GL_HAS_BUILTIN_OVERFLOW_P ((7 <= __GNUC__) && !defined(__clang__))
  
  /* The _GL*_OVERFLOW macros have the same restrictions as the
     *_RANGE_OVERFLOW macros, except that they do not assume that operands
-diff --git a/lib/gnutls_int.h b/lib/gnutls_int.h
-index 179d71b..9b2573f 100644
---- a/lib/gnutls_int.h
-+++ b/lib/gnutls_int.h
+diff -up gnutls-3.6.13/lib/gnutls_int.h.3~ gnutls-3.6.13/lib/gnutls_int.h
+--- gnutls-3.6.13/lib/gnutls_int.h.3~	2020-03-30 00:01:32.000000000 +0200
++++ gnutls-3.6.13/lib/gnutls_int.h	2020-05-02 19:29:38.644954190 +0200
 @@ -90,7 +90,7 @@ typedef int ssize_t;
  # define attr_warn_unused_result
  #endif
@@ -24,23 +22,21 @@ index 179d71b..9b2573f 100644
  # define FALLTHROUGH __attribute__ ((fallthrough))
  #else
  # define FALLTHROUGH
-diff --git a/src/gl/intprops.h b/src/gl/intprops.h
-index 1a44ae5..212c3d3 100644
---- a/src/gl/intprops.h
-+++ b/src/gl/intprops.h
-@@ -228,7 +228,7 @@
- #endif
+diff -up gnutls-3.6.13/src/gl/intprops.h.3~ gnutls-3.6.13/src/gl/intprops.h
+--- gnutls-3.6.13/src/gl/intprops.h.3~	2020-05-02 19:29:38.644954190 +0200
++++ gnutls-3.6.13/src/gl/intprops.h	2020-05-02 19:34:26.722149693 +0200
+@@ -240,7 +240,7 @@
  
- /* True if __builtin_add_overflow_p (A, B, C) works.  */
+ /* True if __builtin_add_overflow_p (A, B, C) works, and similarly for
+    __builtin_mul_overflow_p and __builtin_mul_overflow_p.  */
 -#define _GL_HAS_BUILTIN_OVERFLOW_P (7 <= __GNUC__)
-+#define _GL_HAS_BUILTIN_OVERFLOW_P (7 <= __GNUC__ && !defined(__clang__))
++#define _GL_HAS_BUILTIN_OVERFLOW_P ((7 <= __GNUC__) && !defined(__clang__))
  
  /* The _GL*_OVERFLOW macros have the same restrictions as the
     *_RANGE_OVERFLOW macros, except that they do not assume that operands
-diff --git a/src/gl/xalloc-oversized.h b/src/gl/xalloc-oversized.h
-index e3068c8..08b7e1f 100644
---- a/src/gl/xalloc-oversized.h
-+++ b/src/gl/xalloc-oversized.h
+diff -up gnutls-3.6.13/src/gl/xalloc-oversized.h.3~ gnutls-3.6.13/src/gl/xalloc-oversized.h
+--- gnutls-3.6.13/src/gl/xalloc-oversized.h.3~	2020-03-12 21:14:20.000000000 +0100
++++ gnutls-3.6.13/src/gl/xalloc-oversized.h	2020-05-02 19:29:38.644954190 +0200
 @@ -41,7 +41,7 @@ typedef size_t __xalloc_count_type;
     positive and N must be nonnegative.  This is a macro, not a
     function, so that it works correctly even when SIZE_MAX < N.  */

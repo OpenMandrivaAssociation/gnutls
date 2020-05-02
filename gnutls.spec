@@ -19,8 +19,8 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.6.12
-Release:	3
+Version:	3.6.13
+Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
@@ -138,7 +138,7 @@ LDFLAGS="%{ldflags} -fPIC -fprofile-instr-generate" \
 	--with-default-priority-string="@SYSTEM"
 
 %make_build
-%make_build check || :
+make check || :
 
 unset LD_LIBRARY_PATH
 unset LLVM_PROFILE_FILE
