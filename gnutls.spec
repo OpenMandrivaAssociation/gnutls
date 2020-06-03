@@ -19,18 +19,18 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.6.13
+Version:	3.6.14
 Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
-Source0:	ftp://ftp.gnutls.org/gcrypt/gnutls/v%{url_ver}/%{name}-%{version}.tar.xz
+Source0:	https://www.gnupg.org/ftp/gcrypt/gnutls/v%{url_ver}/%{name}-%{version}.tar.xz
 Patch0:		https://src.fedoraproject.org/rpms/gnutls/raw/master/f/gnutls-3.2.7-rpath.patch
 Patch1:		https://src.fedoraproject.org/rpms/gnutls/raw/master/f/gnutls-3.6.7-no-now-guile.patch
 Patch2:		gnutls-3.6.4-clang.patch
 BuildRequires:	bison
 BuildRequires:	byacc
-BuildRequires:	libunistring-devel
+BuildRequires:	pkgconfig(libunistring)
 BuildRequires:	pkgconfig(lzo2)
 BuildRequires:	gmp-devel
 BuildRequires:	gettext-devel
