@@ -67,6 +67,7 @@ BuildRequires:	devel(liblzo2)
 BuildRequires:	devel(libgcrypt)
 BuildRequires:	devel(libtasn1)
 BuildRequires:	devel(libidn2)
+BuildRequires:	devel(libgmp)
 %endif
 
 %description
