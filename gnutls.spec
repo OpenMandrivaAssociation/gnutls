@@ -1,3 +1,8 @@
+# gnutls is used by wine
+%ifarch %{x86_64}
+%bcond_without compat32
+%endif
+
 %define url_ver %(echo %{version}|cut -d. -f1,2)
 %define dirver %(echo %{version}|cut -d. -f1,2,3)
 %define _disable_rebuild_configure 1
@@ -9,6 +14,9 @@
 %define libname %mklibname %{name} %{major}
 %define libnamexx %mklibname %{name}xx %{xxmajor}
 %define devname %mklibname %{name} -d
+%define lib32name %mklib32name %{name} %{major}
+%define lib32namexx %mklib32name %{name}xx %{xxmajor}
+%define dev32name %mklib32name %{name} -d
 
 # (tpg) enable PGO build
 %bcond_without pgo
@@ -20,7 +28,7 @@
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	3.6.14
-Release:	1
+Release:	2
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
@@ -52,6 +60,14 @@ BuildRequires:	net-tools
 BuildRequires:	datefudge
 BuildRequires:	gnupg
 BuildRequires:	diffutils
+%if %{with compat32}
+BuildRequires:	devel(libnettle)
+BuildRequires:	devel(libunistring)
+BuildRequires:	devel(liblzo2)
+BuildRequires:	devel(libgcrypt)
+BuildRequires:	devel(libtasn1)
+BuildRequires:	devel(libidn2)
+%endif
 
 %description
 GnuTLS is a project that aims to develop a library which provides 
@@ -107,17 +123,75 @@ BuildArch:	noarch
 %description config
 GnuTLS configuration files
 
+%if %{with compat32}
+%package -n %{lib32name}
+Summary:	Library providing a secure layer (SSL) (32-bit)
+Group:		System/Libraries
+Suggests:	%{name}-locales = %{version}-%{release}
+Requires:	%{name}-config = %{EVRD}
+
+%description -n %{lib32name}
+This package contains a shared library for %{name}.
+
+%package -n %{lib32namexx}
+Summary:	Library providing a secure layer (SSL) (32-bit)
+Group:		System/Libraries
+
+%description -n %{lib32namexx}
+This package contains a shared library for %{name}.
+
+%package -n %{dev32name}
+Summary:	Development files for %{name} (32-bit)
+Group:		Development/C
+Requires:	%{devname} = %{version}-%{release}
+Requires:	%{lib32name} = %{version}-%{release}
+Requires:	%{lib32namexx} = %{version}-%{release}
+
+%description -n %{dev32name}
+This package contains all necessary files to compile or develop
+programs/libraries that use %{name}.
+%endif
+
 %prep
 %autosetup -n %{name}-%{dirver} -p1
 
 rm -f lib/minitasn1/*.c lib/minitasn1/*.h
-rm -f src/libopts/*.c src/libopts/*.h src/libopts/compat/*.c src/libopts/compat/*.h
 
 echo "SYSTEM=NORMAL" >> tests/system.prio
 
 %build
 autoreconf -fiv
 
+export CONFIGURE_TOP="$(pwd)"
+
+%if %{with compat32}
+mkdir build32
+cd build32
+# FIXME p11-kit disabled for now to avoid circular build deps
+%configure32 \
+	--host=i686-openmandriva-linux-gnu \
+	--target=i686-openmandriva-linux-gnu \
+	--enable-local-libopts \
+	--without-p11-kit \
+	--with-included-libtasn1=no \
+	--enable-sha1-support \
+	--enable-ssl3-support \
+	--disable-openssl-compatibility \
+	--disable-non-suiteb-curves \
+	--disable-rpath \
+	--disable-guile \
+	--with-default-priority-string="@SYSTEM"
+%make_build
+cd ..
+%endif
+
+# We use the bundled libopts for 32-bit builds (because building autogen would
+# pull in guile and other stuff we don't need). It's safe to kill before
+# doing the 64-bit build.
+#rm -f src/libopts/*.c src/libopts/*.h src/libopts/compat/*.c src/libopts/compat/*.h
+
+mkdir build
+cd build
 %if %{with pgo}
 export LLVM_PROFILE_FILE=%{name}-%p.profile.d
 export LD_LIBRARY_PATH="$(pwd)"
@@ -166,7 +240,10 @@ LDFLAGS="%{ldflags} -fPIC -fprofile-instr-use=$(realpath %{name}.profile)" \
 # %%make_build check V=1 || :
 
 %install
-%make_install
+%if %{with compat32}
+%make_install -C build32
+%endif
+%make_install -C build
 
 mkdir -p %{buildroot}%{_sysconfdir}/gnutls
 cat >%{buildroot}%{_sysconfdir}/gnutls/config <<'EOF'
@@ -201,3 +278,15 @@ EOF
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
 %{_includedir}/gnutls
+
+%if %{with compat32}
+%files -n %{lib32name}
+%{_prefix}/lib/libgnutls.so.%{major}*
+
+%files -n %{lib32namexx}
+%{_prefix}/lib/libgnutlsxx.so.%{xxmajor}*
+
+%files -n %{dev32name}
+%{_prefix}/lib/*.so
+%{_prefix}/lib/pkgconfig/*.pc
+%endif
