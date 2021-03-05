@@ -48,7 +48,7 @@ BuildRequires:	pkgconfig(nettle)
 BuildRequires:	pkgconfig(libidn2)
 BuildRequires:	pkgconfig(libseccomp)
 BuildRequires:	libatomic-devel
-BuildRequires:	gtc-doc
+BuildRequires:	gtk-doc
 #ifnarch %{armx} %{mips} %{riscv}
 #BuildRequires:	valgrind
 #endif
