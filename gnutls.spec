@@ -28,13 +28,14 @@
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	3.7.0
-Release:	1
+Release:	2
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
 Source0:	https://www.gnupg.org/ftp/gcrypt/gnutls/v%{url_ver}/%{name}-%{version}.tar.xz
 Patch0:		https://src.fedoraproject.org/rpms/gnutls/raw/master/f/gnutls-3.2.7-rpath.patch
 Patch1:		https://src.fedoraproject.org/rpms/gnutls/raw/master/f/gnutls-3.6.7-no-now-guile.patch
+Patch2:		https://src.fedoraproject.org/rpms/gnutls/raw/rawhide/f/gnutls-3.7.1-aggressive-realloc-fixes.patch
 BuildRequires:	bison
 BuildRequires:	byacc
 BuildRequires:	pkgconfig(libunistring)
@@ -53,7 +54,6 @@ BuildRequires:	gtk-doc
 #BuildRequires:	valgrind
 #endif
 BuildRequires:	autogen
-BuildRequires:	pkgconfig(autoopts)
 BuildRequires:	texinfo
 # (tpg) neeeded for tests
 BuildRequires:	iproute2
@@ -190,7 +190,7 @@ cd ..
 # We use the bundled libopts for 32-bit builds (because building autogen would
 # pull in guile and other stuff we don't need). It's safe to kill before
 # doing the 64-bit build.
-#rm -f src/libopts/*.c src/libopts/*.h src/libopts/compat/*.c src/libopts/compat/*.h
+rm -f src/libopts/*.c src/libopts/*.h src/libopts/compat/*.c src/libopts/compat/*.h
 
 mkdir build
 cd build
@@ -204,6 +204,7 @@ FCFLAGS="$CFLAGS" \
 LDFLAGS="%{ldflags} -fPIC -fprofile-instr-generate" \
 %configure \
 	--with-included-libtasn1=no \
+	--enable-local-libopts \
 	--enable-sha1-support \
 	--enable-ssl3-support \
 	--disable-openssl-compatibility \
@@ -227,6 +228,7 @@ LDFLAGS="%{ldflags} -fPIC -fprofile-instr-use=$(realpath %{name}.profile)" \
 %endif
 %configure \
 	--with-included-libtasn1=no \
+	--enable-local-libopts \
 	--enable-sha1-support \
 	--enable-ssl3-support \
 	--disable-openssl-compatibility \
