@@ -27,8 +27,8 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.7.0
-Release:	2
+Version:	3.7.1
+Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
@@ -186,11 +186,6 @@ cd build32
 %make_build
 cd ..
 %endif
-
-# We use the bundled libopts for 32-bit builds (because building autogen would
-# pull in guile and other stuff we don't need). It's safe to kill before
-# doing the 64-bit build.
-rm -f src/libopts/*.c src/libopts/*.h src/libopts/compat/*.c src/libopts/compat/*.h
 
 mkdir build
 cd build
