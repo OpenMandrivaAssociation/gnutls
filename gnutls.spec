@@ -27,7 +27,7 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.7.1
+Version:	3.7.2
 Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
@@ -35,7 +35,6 @@ Url:		http://www.gnutls.org
 Source0:	https://www.gnupg.org/ftp/gcrypt/gnutls/v%{url_ver}/%{name}-%{version}.tar.xz
 Patch0:		https://src.fedoraproject.org/rpms/gnutls/raw/master/f/gnutls-3.2.7-rpath.patch
 Patch1:		https://src.fedoraproject.org/rpms/gnutls/raw/master/f/gnutls-3.6.7-no-now-guile.patch
-Patch2:		https://src.fedoraproject.org/rpms/gnutls/raw/rawhide/f/gnutls-3.7.1-aggressive-realloc-fixes.patch
 BuildRequires:	bison
 BuildRequires:	byacc
 BuildRequires:	pkgconfig(libunistring)
