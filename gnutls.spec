@@ -3,6 +3,8 @@
 %bcond_without compat32
 %endif
 
+# static libs are used by qemu
+
 %define url_ver %(echo %{version}|cut -d. -f1,2)
 %define dirver %(echo %{version}|cut -d. -f1,2,3)
 %define _disable_rebuild_configure 1
@@ -14,9 +16,11 @@
 %define libname %mklibname %{name} %{major}
 %define libnamexx %mklibname %{name}xx %{xxmajor}
 %define devname %mklibname %{name} -d
+%define sdevname %mklibname %{name} -d -s
 %define lib32name %mklib32name %{name} %{major}
 %define lib32namexx %mklib32name %{name}xx %{xxmajor}
 %define dev32name %mklib32name %{name} -d
+%define sdev32name %mklib32name %{name} -d -s
 
 # (tpg) enable PGO build
 %bcond_without pgo
@@ -107,6 +111,16 @@ Provides:	%{name}-devel = %{version}-%{release}
 This package contains all necessary files to compile or develop
 programs/libraries that use %{name}.
 
+%package -n %{sdevname}
+Summary:	Static libraries for %{name}
+Group:		Development/C
+Requires:	%{devname} = %{version}-%{release}
+Provides:	%{name}-static-devel = %{version}-%{release}
+
+%description -n %{sdevname}
+This package contains all necessary files to compile or develop
+programs/libraries that use %{name} and link them statically.
+
 %package locales
 Summary:	Locale files for GnuTLS
 Group:		System/Internationalization 
@@ -151,6 +165,15 @@ Requires:	%{lib32namexx} = %{version}-%{release}
 %description -n %{dev32name}
 This package contains all necessary files to compile or develop
 programs/libraries that use %{name}.
+
+%package -n %{sdev32name}
+Summary:	Static libraries for %{name} (32-bit)
+Group:		Development/C
+Requires:	%{dev32name} = %{version}-%{release}
+
+%description -n %{sdev32name}
+This package contains all necessary files to compile or develop
+programs/libraries that use %{name} and link them statically
 %endif
 
 %prep
@@ -175,6 +198,7 @@ cd build32
 	--enable-local-libopts \
 	--without-p11-kit \
 	--with-included-libtasn1=no \
+	--enable-static \
 	--enable-sha1-support \
 	--enable-ssl3-support \
 	--disable-openssl-compatibility \
@@ -201,6 +225,7 @@ LDFLAGS="%{ldflags} -fPIC -fprofile-instr-generate" \
 	--enable-local-libopts \
 	--enable-sha1-support \
 	--enable-ssl3-support \
+	--enable-static \
 	--disable-openssl-compatibility \
 	--disable-non-suiteb-curves \
 	--disable-rpath \
@@ -225,6 +250,7 @@ LDFLAGS="%{ldflags} -fPIC -fprofile-instr-use=$(realpath %{name}.profile)" \
 	--enable-local-libopts \
 	--enable-sha1-support \
 	--enable-ssl3-support \
+	--enable-static \
 	--disable-openssl-compatibility \
 	--disable-non-suiteb-curves \
 	--disable-rpath \
@@ -277,6 +303,9 @@ EOF
 %{_libdir}/pkgconfig/*.pc
 %{_includedir}/gnutls
 
+%files -n %{sdevname}
+%{_libdir}/*.a
+
 %if %{with compat32}
 %files -n %{lib32name}
 %{_prefix}/lib/libgnutls.so.%{major}*
@@ -287,4 +316,7 @@ EOF
 %files -n %{dev32name}
 %{_prefix}/lib/*.so
 %{_prefix}/lib/pkgconfig/*.pc
+
+%files -n %{sdev32name}
+%{_prefix}/lib/*.a
 %endif
