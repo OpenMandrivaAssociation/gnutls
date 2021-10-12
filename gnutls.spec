@@ -23,7 +23,7 @@
 %define sdev32name %mklib32name %{name} -d -s
 
 # (tpg) enable PGO build
-%bcond_without pgo
+%bcond_with pgo
 
 %ifarch %{ix86}
 %global ldflags %{ldflags} -Wl,-z,notext
