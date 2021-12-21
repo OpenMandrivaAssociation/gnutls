@@ -23,7 +23,7 @@
 %define sdev32name %mklib32name %{name} -d -s
 
 # (tpg) enable PGO build
-%bcond_with pgo
+%bcond_without pgo
 
 %ifarch %{ix86}
 %global ldflags %{ldflags} -Wl,-z,notext
@@ -32,7 +32,7 @@
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	3.7.2
-Release:	2
+Release:	3
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
@@ -213,13 +213,11 @@ cd ..
 mkdir build
 cd build
 %if %{with pgo}
-export LLVM_PROFILE_FILE=%{name}-%p.profile.d
 export LD_LIBRARY_PATH="$(pwd)"
-CFLAGS="%{optflags} -fprofile-instr-generate" \
-CXXFLAGS="%{optflags} -fprofile-instr-generate" \
-FFLAGS="$CFLAGS" \
-FCFLAGS="$CFLAGS" \
-LDFLAGS="%{ldflags} -fPIC -fprofile-instr-generate" \
+
+CFLAGS="%{optflags} -fprofile-generate" \
+CXXFLAGS="%{optflags} -fprofile-generate" \
+LDFLAGS="%{build_ldflags} -fprofile-generate" \
 %configure \
 	--with-included-libtasn1=no \
 	--enable-local-libopts \
@@ -236,14 +234,15 @@ LDFLAGS="%{ldflags} -fPIC -fprofile-instr-generate" \
 make check || :
 
 unset LD_LIBRARY_PATH
-unset LLVM_PROFILE_FILE
-llvm-profdata merge --output=%{name}.profile *.profile.d
+llvm-profdata merge --output=%{name}-llvm.profdata $(find . -name "*.profraw" -type f)
+PROFDATA="$(realpath %{name}-llvm.profdata)"
+rm -f *.profraw
 
 make clean
 
-CFLAGS="%{optflags} -fprofile-instr-use=$(realpath %{name}.profile)" \
-CXXFLAGS="%{optflags} -fprofile-instr-use=$(realpath %{name}.profile)" \
-LDFLAGS="%{ldflags} -fPIC -fprofile-instr-use=$(realpath %{name}.profile)" \
+CFLAGS="%{optflags} -fprofile-use=$PROFDATA" \
+CXXFLAGS="%{optflags} -fprofile-use=$PROFDATA" \
+LDFLAGS="%{build_ldflags} -fprofile-use=$PROFDATA" \
 %endif
 %configure \
 	--with-included-libtasn1=no \
