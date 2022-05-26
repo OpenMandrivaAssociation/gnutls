@@ -32,7 +32,7 @@
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	3.7.4
-Release:	1
+Release:	2
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
@@ -182,6 +182,9 @@ programs/libraries that use %{name} and link them statically
 rm -f lib/minitasn1/*.c lib/minitasn1/*.h
 
 echo "SYSTEM=NORMAL" >> tests/system.prio
+
+# (tpg) 2022-05-27 clang-14: error: the clang compiler does not support '-march=all'
+sed -i -e 's/-Wa,-march=all//' lib/accelerated/aarch64/Makefile.*
 
 %build
 autoreconf -fiv
