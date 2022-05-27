@@ -12,7 +12,7 @@
 %global optflags %{optflags} -O3 -fPIC
 
 %define major 30
-%define xxmajor 28
+%define xxmajor %{major}
 %define libname %mklibname %{name} %{major}
 %define libnamexx %mklibname %{name}xx %{xxmajor}
 %define devname %mklibname %{name} -d
@@ -234,7 +234,11 @@ LDFLAGS="%{build_ldflags} -fprofile-generate" \
 	--with-default-priority-string="@SYSTEM"
 
 %make_build
-make check || :
+
+# (tpg) run benchmarks
+LD_PRELOAD="./lib/.libs/libgnutls.so" ./src/.libs/gnutls-cli --benchmark-ciphers
+LD_PRELOAD="./lib/.libs/libgnutls.so" ./src/.libs/gnutls-cli --benchmark-tls-kx
+LD_PRELOAD="./lib/.libs/libgnutls.so" ./src/.libs/gnutls-cli --benchmark-tls-ciphers
 
 unset LD_LIBRARY_PATH
 llvm-profdata merge --output=%{name}-llvm.profdata $(find . -name "*.profraw" -type f)
