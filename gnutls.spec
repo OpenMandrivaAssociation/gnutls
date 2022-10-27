@@ -305,12 +305,13 @@ EOF
 
 %files -n %{libname}
 %{_libdir}/libgnutls.so.%{major}*
+%{_libdir}/libgnutls.so
 
 %files -n %{libnamexx}
 %{_libdir}/libgnutlsxx.so.%{xxmajor}*
+%{_libdir}/libgnutlsxx.so
 
 %files -n %{devname}
-%{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
 %{_includedir}/gnutls
 
@@ -320,12 +321,13 @@ EOF
 %if %{with compat32}
 %files -n %{lib32name}
 %{_prefix}/lib/libgnutls.so.%{major}*
+%{_prefix}/lib/libgnutls.so
 
 %files -n %{lib32namexx}
 %{_prefix}/lib/libgnutlsxx.so.%{xxmajor}*
+%{_prefix}/lib/libgnutlsxx.so
 
 %files -n %{dev32name}
-%{_prefix}/lib/*.so
 %{_prefix}/lib/pkgconfig/*.pc
 
 %files -n %{sdev32name}
