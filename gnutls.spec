@@ -13,12 +13,16 @@
 
 %define major 30
 %define xxmajor %{major}
-%define libname %mklibname %{name} %{major}
-%define libnamexx %mklibname %{name}xx %{xxmajor}
+%define libname %mklibname %{name}
+%define oldlibname %mklibname %{name} 30
+%define libnamexx %mklibname %{name}xx
+%define oldlibnamexx %mklibname %{name}xx 30
 %define devname %mklibname %{name} -d
 %define sdevname %mklibname %{name} -d -s
-%define lib32name %mklib32name %{name} %{major}
-%define lib32namexx %mklib32name %{name}xx %{xxmajor}
+%define lib32name %mklib32name %{name}
+%define oldlib32name %mklibname %{name} 30
+%define lib32namexx %mklib32name %{name}xx
+%define oldlib32namexx %mklib32name %{name}xx 30
 %define dev32name %mklib32name %{name} -d
 %define sdev32name %mklib32name %{name} -d -s
 
@@ -85,8 +89,8 @@ Suggests:	%{name}-locales = %{version}-%{release}
 %if "%{_lib}" == "lib64"
 Conflicts:	lib%{name}%{major} < %{version}
 %endif
-Obsoletes:	%{mklibname %{name}-openssl 27} < 3.6.5
 Requires:	%{name}-config = %{EVRD}
+%rename %{oldlibname}
 
 %description -n %{libname}
 This package contains a shared library for %{name}.
@@ -94,7 +98,7 @@ This package contains a shared library for %{name}.
 %package -n %{libnamexx}
 Summary:	Library providing a secure layer (SSL)
 Group:		System/Libraries
-Conflicts:	%{_lib}gnutls28 < 3.1.9.1-3
+%rename %{oldlibnamexx}
 
 %description -n %{libnamexx}
 This package contains a shared library for %{name}.
@@ -125,7 +129,6 @@ programs/libraries that use %{name} and link them statically.
 Summary:	Locale files for GnuTLS
 Group:		System/Internationalization 
 BuildArch:	noarch
-Conflicts:	%{mklibname gnutls 28} <= 3.1.9.1-1
 
 %description locales
 Locale files for GnuTLS main library.
@@ -144,6 +147,7 @@ Summary:	Library providing a secure layer (SSL) (32-bit)
 Group:		System/Libraries
 Suggests:	%{name}-locales = %{version}-%{release}
 Requires:	%{name}-config = %{EVRD}
+%rename %{oldlib32name}
 
 %description -n %{lib32name}
 This package contains a shared library for %{name}.
@@ -151,6 +155,7 @@ This package contains a shared library for %{name}.
 %package -n %{lib32namexx}
 Summary:	Library providing a secure layer (SSL) (32-bit)
 Group:		System/Libraries
+%rename %{oldlib32namexx}
 
 %description -n %{lib32namexx}
 This package contains a shared library for %{name}.
