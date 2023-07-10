@@ -31,6 +31,8 @@
 %bcond_without pgo
 %else
 %bcond_with pgo
+# Workaround for libtool being a mess and adding -rpath /usr/lib64
+%define prefer_gcc 1
 %endif
 
 %ifarch %{ix86}
