@@ -1,18 +1,18 @@
-diff -up gnutls-3.8.0/config.h.in.2~ gnutls-3.8.0/config.h.in
---- gnutls-3.8.0/config.h.in.2~	2023-02-09 15:56:16.000000000 +0100
-+++ gnutls-3.8.0/config.h.in	2023-02-11 18:40:50.379485967 +0100
-@@ -2317,7 +2317,7 @@
-    _GL_ATTRIBUTE_DEALLOC_FREE declares that the function returns pointers that
+diff -up gnutls-3.8.1/config.h.in.2~ gnutls-3.8.1/config.h.in
+--- gnutls-3.8.1/config.h.in.2~	2023-08-05 00:13:18.350065392 +0200
++++ gnutls-3.8.1/config.h.in	2023-08-05 00:14:00.306460767 +0200
+@@ -2362,7 +2362,7 @@
     can be freed via 'free'; it can be used only after declaring 'free'.  */
  /* Applies to: functions.  Cannot be used on inline functions.  */
--#if _GL_GNUC_PREREQ (11, 0)
-+#if _GL_GNUC_PREREQ (11, 0) && !defined(__clang__)
- # define _GL_ATTRIBUTE_DEALLOC(f, i) __attribute__ ((__malloc__ (f, i)))
- #else
- # define _GL_ATTRIBUTE_DEALLOC(f, i)
-diff -up gnutls-3.8.0/gl/stdio.in.h.2~ gnutls-3.8.0/gl/stdio.in.h
---- gnutls-3.8.0/gl/stdio.in.h.2~	2023-02-09 15:54:17.000000000 +0100
-+++ gnutls-3.8.0/gl/stdio.in.h	2023-02-11 18:30:39.001238462 +0100
+ #ifndef _GL_ATTRIBUTE_DEALLOC
+-# if _GL_GNUC_PREREQ (11, 0)
++# if _GL_GNUC_PREREQ (11, 0) && !defined(__clang__)
+ #  define _GL_ATTRIBUTE_DEALLOC(f, i) __attribute__ ((__malloc__ (f, i)))
+ # else
+ #  define _GL_ATTRIBUTE_DEALLOC(f, i)
+diff -up gnutls-3.8.1/gl/stdio.in.h.2~ gnutls-3.8.1/gl/stdio.in.h
+--- gnutls-3.8.1/gl/stdio.in.h.2~	2023-08-04 10:07:49.000000000 +0200
++++ gnutls-3.8.1/gl/stdio.in.h	2023-08-05 00:13:18.350065392 +0200
 @@ -95,7 +95,7 @@
     that can be freed by passing them as the Ith argument to the
     function F.  */
@@ -22,10 +22,10 @@ diff -up gnutls-3.8.0/gl/stdio.in.h.2~ gnutls-3.8.0/gl/stdio.in.h
  #  define _GL_ATTRIBUTE_DEALLOC(f, i) __attribute__ ((__malloc__ (f, i)))
  # else
  #  define _GL_ATTRIBUTE_DEALLOC(f, i)
-diff -up gnutls-3.8.0/gl/string.in.h.2~ gnutls-3.8.0/gl/string.in.h
---- gnutls-3.8.0/gl/string.in.h.2~	2023-02-09 15:54:17.000000000 +0100
-+++ gnutls-3.8.0/gl/string.in.h	2023-02-11 18:30:39.001238462 +0100
-@@ -71,7 +71,7 @@
+diff -up gnutls-3.8.1/gl/string.in.h.2~ gnutls-3.8.1/gl/string.in.h
+--- gnutls-3.8.1/gl/string.in.h.2~	2023-08-04 10:07:49.000000000 +0200
++++ gnutls-3.8.1/gl/string.in.h	2023-08-05 00:13:18.350065392 +0200
+@@ -72,7 +72,7 @@
     that can be freed by passing them as the Ith argument to the
     function F.  */
  #ifndef _GL_ATTRIBUTE_DEALLOC
@@ -34,9 +34,9 @@ diff -up gnutls-3.8.0/gl/string.in.h.2~ gnutls-3.8.0/gl/string.in.h
  #  define _GL_ATTRIBUTE_DEALLOC(f, i) __attribute__ ((__malloc__ (f, i)))
  # else
  #  define _GL_ATTRIBUTE_DEALLOC(f, i)
-diff -up gnutls-3.8.0/gl/wchar.in.h.2~ gnutls-3.8.0/gl/wchar.in.h
---- gnutls-3.8.0/gl/wchar.in.h.2~	2023-02-09 15:54:17.000000000 +0100
-+++ gnutls-3.8.0/gl/wchar.in.h	2023-02-11 18:30:39.001238462 +0100
+diff -up gnutls-3.8.1/gl/wchar.in.h.2~ gnutls-3.8.1/gl/wchar.in.h
+--- gnutls-3.8.1/gl/wchar.in.h.2~	2023-08-04 10:07:49.000000000 +0200
++++ gnutls-3.8.1/gl/wchar.in.h	2023-08-05 00:13:18.350065392 +0200
 @@ -88,7 +88,7 @@
     that can be freed by passing them as the Ith argument to the
     function F.  */
@@ -46,39 +46,39 @@ diff -up gnutls-3.8.0/gl/wchar.in.h.2~ gnutls-3.8.0/gl/wchar.in.h
  #  define _GL_ATTRIBUTE_DEALLOC(f, i) __attribute__ ((__malloc__ (f, i)))
  # else
  #  define _GL_ATTRIBUTE_DEALLOC(f, i)
-diff -up gnutls-3.8.0/src/gl/string.in.h.2~ gnutls-3.8.0/src/gl/string.in.h
---- gnutls-3.8.0/src/gl/string.in.h.2~	2023-02-09 15:55:13.000000000 +0100
-+++ gnutls-3.8.0/src/gl/string.in.h	2023-02-11 18:30:39.001238462 +0100
-@@ -71,7 +71,7 @@
-    that can be freed by passing them as the Ith argument to the
-    function F.  */
- #ifndef _GL_ATTRIBUTE_DEALLOC
--# if __GNUC__ >= 11
-+# if __GNUC__ >= 11 && !defined(__clang__)
- #  define _GL_ATTRIBUTE_DEALLOC(f, i) __attribute__ ((__malloc__ (f, i)))
- # else
- #  define _GL_ATTRIBUTE_DEALLOC(f, i)
-diff -up gnutls-3.8.0/src/gl/wchar.in.h.2~ gnutls-3.8.0/src/gl/wchar.in.h
---- gnutls-3.8.0/src/gl/wchar.in.h.2~	2023-02-09 15:55:15.000000000 +0100
-+++ gnutls-3.8.0/src/gl/wchar.in.h	2023-02-11 18:30:39.002238764 +0100
-@@ -88,7 +88,7 @@
-    that can be freed by passing them as the Ith argument to the
-    function F.  */
- #ifndef _GL_ATTRIBUTE_DEALLOC
--# if __GNUC__ >= 11
-+# if __GNUC__ >= 11 && !defined(__clang__)
- #  define _GL_ATTRIBUTE_DEALLOC(f, i) __attribute__ ((__malloc__ (f, i)))
- # else
- #  define _GL_ATTRIBUTE_DEALLOC(f, i)
-diff -up gnutls-3.8.0/m4/gnulib-common.m4.omv~ gnutls-3.8.0/m4/gnulib-common.m4
---- gnutls-3.8.0/m4/gnulib-common.m4.omv~	2023-02-11 18:56:39.642181406 +0100
-+++ gnutls-3.8.0/m4/gnulib-common.m4	2023-02-11 18:56:56.002047724 +0100
-@@ -182,7 +182,7 @@ AC_DEFUN([gl_COMMON_BODY], [
-    _GL_ATTRIBUTE_DEALLOC_FREE declares that the function returns pointers that
+diff -up gnutls-3.8.1/m4/gnulib-common.m4.2~ gnutls-3.8.1/m4/gnulib-common.m4
+--- gnutls-3.8.1/m4/gnulib-common.m4.2~	2023-08-05 00:13:18.350065392 +0200
++++ gnutls-3.8.1/m4/gnulib-common.m4	2023-08-05 00:14:20.886654880 +0200
+@@ -194,7 +194,7 @@ AC_DEFUN([gl_COMMON_BODY], [
     can be freed via 'free'; it can be used only after declaring 'free'.  */
  /* Applies to: functions.  Cannot be used on inline functions.  */
--#if _GL_GNUC_PREREQ (11, 0)
-+#if _GL_GNUC_PREREQ (11, 0) && !defined(__clang__)
- # define _GL_ATTRIBUTE_DEALLOC(f, i) __attribute__ ((__malloc__ (f, i)))
- #else
- # define _GL_ATTRIBUTE_DEALLOC(f, i)
+ #ifndef _GL_ATTRIBUTE_DEALLOC
+-# if _GL_GNUC_PREREQ (11, 0)
++# if _GL_GNUC_PREREQ (11, 0) && !defined(__clang__)
+ #  define _GL_ATTRIBUTE_DEALLOC(f, i) __attribute__ ((__malloc__ (f, i)))
+ # else
+ #  define _GL_ATTRIBUTE_DEALLOC(f, i)
+diff -up gnutls-3.8.1/src/gl/string.in.h.2~ gnutls-3.8.1/src/gl/string.in.h
+--- gnutls-3.8.1/src/gl/string.in.h.2~	2023-08-04 10:08:39.000000000 +0200
++++ gnutls-3.8.1/src/gl/string.in.h	2023-08-05 00:13:18.350065392 +0200
+@@ -72,7 +72,7 @@
+    that can be freed by passing them as the Ith argument to the
+    function F.  */
+ #ifndef _GL_ATTRIBUTE_DEALLOC
+-# if __GNUC__ >= 11
++# if __GNUC__ >= 11 && !defined(__clang__)
+ #  define _GL_ATTRIBUTE_DEALLOC(f, i) __attribute__ ((__malloc__ (f, i)))
+ # else
+ #  define _GL_ATTRIBUTE_DEALLOC(f, i)
+diff -up gnutls-3.8.1/src/gl/wchar.in.h.2~ gnutls-3.8.1/src/gl/wchar.in.h
+--- gnutls-3.8.1/src/gl/wchar.in.h.2~	2023-08-04 10:08:40.000000000 +0200
++++ gnutls-3.8.1/src/gl/wchar.in.h	2023-08-05 00:13:18.350065392 +0200
+@@ -88,7 +88,7 @@
+    that can be freed by passing them as the Ith argument to the
+    function F.  */
+ #ifndef _GL_ATTRIBUTE_DEALLOC
+-# if __GNUC__ >= 11
++# if __GNUC__ >= 11 && !defined(__clang__)
+ #  define _GL_ATTRIBUTE_DEALLOC(f, i) __attribute__ ((__malloc__ (f, i)))
+ # else
+ #  define _GL_ATTRIBUTE_DEALLOC(f, i)

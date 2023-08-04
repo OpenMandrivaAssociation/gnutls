@@ -41,8 +41,8 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.8.0
-Release:	3
+Version:	3.8.1
+Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gnutls.org
