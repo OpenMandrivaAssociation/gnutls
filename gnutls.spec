@@ -35,9 +35,9 @@
 %define prefer_gcc 1
 %endif
 
-%ifarch %{ix86}
-%global ldflags %{ldflags} -Wl,-z,notext
-%endif
+# autoconf's check for symbol versioning is broken and doesn't recognize
+# working symbol versioning with lld 17's (better) defaults
+%global build_ldflags %{build_ldflags} -Wl,--undefined-version
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
