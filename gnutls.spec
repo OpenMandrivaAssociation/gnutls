@@ -45,7 +45,7 @@ Version:	3.8.7.1
 Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
-Url:		http://www.gnutls.org
+Url:		https://www.gnutls.org
 Source0:	https://www.gnupg.org/ftp/gcrypt/gnutls/v%{url_ver}/%{name}-%{version}.tar.xz
 Patch0:		https://src.fedoraproject.org/rpms/gnutls/raw/master/f/gnutls-3.2.7-rpath.patch
 Patch1:		gnutls-3.8.0-clang.patch
