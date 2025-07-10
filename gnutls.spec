@@ -60,6 +60,9 @@ BuildRequires:	pkgconfig(p11-kit-1)
 BuildRequires:	pkgconfig(nettle)
 BuildRequires:	pkgconfig(libidn2)
 BuildRequires:	pkgconfig(libseccomp)
+BuildRequires:	pkgconfig(zlib)
+BuildRequires:	pkgconfig(libzstd)
+BuildRequires:	pkgconfig(libbrotlienc)
 BuildRequires:	libatomic-devel
 BuildRequires:	gtk-doc
 #ifnarch %{armx} %{mips} %{riscv}
