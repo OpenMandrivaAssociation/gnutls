@@ -41,7 +41,7 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.8.9
+Version:	3.8.10
 Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
@@ -246,9 +246,9 @@ LDFLAGS="%{build_ldflags} -fprofile-generate" \
 %make_build
 
 # (tpg) run benchmarks
-LD_PRELOAD="./lib/.libs/libgnutls.so" ./src/.libs/gnutls-cli --benchmark-ciphers
-LD_PRELOAD="./lib/.libs/libgnutls.so" ./src/.libs/gnutls-cli --benchmark-tls-kx
-LD_PRELOAD="./lib/.libs/libgnutls.so" ./src/.libs/gnutls-cli --benchmark-tls-ciphers
+LD_LIBRARY_PATH="$(pwd)/lib/.libs:$(pwd)/libdane/.libs" ./src/.libs/gnutls-cli --benchmark-ciphers
+LD_LIBRARY_PATH="$(pwd)/lib/.libs:$(pwd)/libdane/.libs" ./src/.libs/gnutls-cli --benchmark-tls-kx
+LD_LIBRARY_PATH="$(pwd)/lib/.libs:$(pwd)/libdane/.libs" ./src/.libs/gnutls-cli --benchmark-tls-ciphers
 
 unset LD_LIBRARY_PATH
 llvm-profdata merge --output=%{name}-llvm.profdata $(find . -name "*.profraw" -type f)
@@ -293,9 +293,12 @@ EOF
 
 %find_lang %{name}
 
+%libpackage gnutls-dane 0
+
 %files
 %doc %{_docdir}/%{name}
 %{_bindir}/[cgs]*
+%{_bindir}/danetool
 %{_bindir}/psktool
 %{_bindir}/p11tool
 %{_bindir}/ocsptool
@@ -317,6 +320,7 @@ EOF
 %{_libdir}/libgnutlsxx.so
 
 %files -n %{devname}
+%{_libdir}/libgnutls-dane.so
 %{_libdir}/pkgconfig/*.pc
 %{_includedir}/gnutls
 
