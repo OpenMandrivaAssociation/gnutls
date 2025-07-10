@@ -63,6 +63,7 @@ BuildRequires:	pkgconfig(libseccomp)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(libzstd)
 BuildRequires:	pkgconfig(libbrotlienc)
+BuildRequires:	pkgconfig(libunbound)
 BuildRequires:	libatomic-devel
 BuildRequires:	gtk-doc
 #ifnarch %{armx} %{mips} %{riscv}
