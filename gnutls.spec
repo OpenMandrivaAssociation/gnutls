@@ -67,7 +67,6 @@ BuildRequires:	pkgconfig(libseccomp)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(libzstd)
 BuildRequires:	pkgconfig(libbrotlienc)
-#BuildRequires:	pkgconfig(libunbound)
 BuildRequires:	libatomic-devel
 BuildRequires:	gtk-doc
 BuildRequires:	make
@@ -307,7 +306,6 @@ EOF
 %files
 %doc %{_docdir}/%{name}
 %{_bindir}/[cgs]*
-%{_bindir}/danetool
 %{_bindir}/psktool
 %{_bindir}/p11tool
 %{_bindir}/ocsptool
