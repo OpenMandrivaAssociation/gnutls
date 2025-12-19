@@ -301,8 +301,6 @@ EOF
 
 %find_lang %{name}
 
-%libpackage gnutls-dane 0
-
 %files
 %doc %{_docdir}/%{name}
 %{_bindir}/[cgs]*
@@ -327,7 +325,6 @@ EOF
 %{_libdir}/libgnutlsxx.so
 
 %files -n %{devname}
-%{_libdir}/libgnutls-dane.so
 %{_libdir}/pkgconfig/*.pc
 %{_includedir}/gnutls
 
