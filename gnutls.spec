@@ -64,7 +64,7 @@ BuildRequires:	pkgconfig(libseccomp)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(libzstd)
 BuildRequires:	pkgconfig(libbrotlienc)
-BuildRequires:	pkgconfig(libunbound)
+#BuildRequires:	pkgconfig(libunbound)
 BuildRequires:	libatomic-devel
 BuildRequires:	gtk-doc
 BuildRequires:	make
