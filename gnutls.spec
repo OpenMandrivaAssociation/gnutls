@@ -41,7 +41,7 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.8.10
+Version:	3.8.11
 Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
@@ -54,6 +54,7 @@ BuildRequires:	pkgconfig(libunistring)
 BuildRequires:	pkgconfig(lzo2)
 BuildRequires:	gmp-devel
 BuildRequires:	gettext-devel
+BuildRequires:	libtool
 BuildRequires:	pkgconfig(libgcrypt)
 BuildRequires:	pkgconfig(libtasn1)
 BuildRequires:	pkgconfig(p11-kit-1)
@@ -66,6 +67,7 @@ BuildRequires:	pkgconfig(libbrotlienc)
 BuildRequires:	pkgconfig(libunbound)
 BuildRequires:	libatomic-devel
 BuildRequires:	gtk-doc
+BuildRequires:	make
 #ifnarch %{armx} %{mips} %{riscv}
 #BuildRequires:	valgrind
 #endif
