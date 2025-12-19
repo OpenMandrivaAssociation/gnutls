@@ -57,6 +57,7 @@ BuildRequires:	pkgconfig(lzo2)
 BuildRequires:	gmp-devel
 BuildRequires:	gettext-devel
 BuildRequires:	libtool
+BuildRequires:	slibtool
 BuildRequires:	pkgconfig(libgcrypt)
 BuildRequires:	pkgconfig(libtasn1)
 BuildRequires:	pkgconfig(p11-kit-1)
