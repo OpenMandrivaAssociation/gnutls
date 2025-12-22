@@ -25,6 +25,7 @@
 %define oldlib32namexx %mklib32name %{name}xx 30
 %define dev32name %mklib32name %{name} -d
 %define sdev32name %mklib32name %{name} -d -s
+%define libdanename %mklibname %{name}-dane
 
 # (tpg) enable PGO build
 %if ! %{cross_compiling}
@@ -42,7 +43,7 @@
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
 Version:	3.8.11
-Release:	1
+Release:	2
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		https://www.gnutls.org
@@ -68,6 +69,7 @@ BuildRequires:	pkgconfig(libseccomp)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(libzstd)
 BuildRequires:	pkgconfig(libbrotlienc)
+BuildRequires:	pkgconfig(libunbound)
 BuildRequires:	libatomic-devel
 BuildRequires:	gtk-doc
 BuildRequires:	make
@@ -117,6 +119,14 @@ Group:		System/Libraries
 %description -n %{libnamexx}
 This package contains a shared library for %{name}.
 
+%package -n %{libdanename}
+Summary:	Library providing DANE DNSSEC support
+Group:		System/Libraries
+
+%description -n %{libdanename}
+This package contains a shared library for %{name}'s DANE
+(DNSSEC) library
+
 %package -n %{devname}
 Summary:	Development files for %{name}
 Group:		Development/C
@@ -154,6 +164,13 @@ BuildArch:	noarch
 
 %description config
 GnuTLS configuration files
+
+%package danetool
+Summary:	DANE (DNSSEC) tools for gnutls
+Group:		Servers
+
+%description danetool
+DANE (DNSSEC) tools for gnutls
 
 %if %{with compat32}
 %package -n %{lib32name}
@@ -311,6 +328,9 @@ EOF
 %doc %{_mandir}/man?/*
 %doc %{_infodir}/*
 
+%files danetool
+%{_bindir}/danetool
+
 %files config
 %dir %{_sysconfdir}/gnutls
 %config(noreplace) %{_sysconfdir}/gnutls/config
@@ -324,6 +344,10 @@ EOF
 %files -n %{libnamexx}
 %{_libdir}/libgnutlsxx.so.%{xxmajor}*
 %{_libdir}/libgnutlsxx.so
+
+%files -n %{libdanename}
+%{_libdir}/libgnutls-dane.so.0*
+%{_libdir}/libgnutls-dane.so
 
 %files -n %{devname}
 %{_libdir}/pkgconfig/*.pc
