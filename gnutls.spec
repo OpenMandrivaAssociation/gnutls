@@ -32,8 +32,6 @@
 %bcond_without pgo
 %else
 %bcond_with pgo
-# Workaround for libtool being a mess and adding -rpath /usr/lib64
-%define prefer_gcc 1
 %endif
 
 # autoconf's check for symbol versioning is broken and doesn't recognize
@@ -42,14 +40,13 @@
 
 Summary:	Library providing a secure layer (SSL)
 Name:		gnutls
-Version:	3.8.11
-Release:	2
+Version:	3.8.12
+Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		System/Libraries
 Url:		https://www.gnutls.org
 Source0:	https://www.gnupg.org/ftp/gcrypt/gnutls/v%{url_ver}/%{name}-%{version}.tar.xz
 Patch0:		https://src.fedoraproject.org/rpms/gnutls/raw/master/f/gnutls-3.2.7-rpath.patch
-BuildRequires:	libtool-base
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bison
@@ -58,7 +55,6 @@ BuildRequires:	pkgconfig(libunistring)
 BuildRequires:	pkgconfig(lzo2)
 BuildRequires:	gmp-devel
 BuildRequires:	gettext-devel
-BuildRequires:	libtool
 BuildRequires:	slibtool
 BuildRequires:	pkgconfig(libgcrypt)
 BuildRequires:	pkgconfig(libtasn1)
