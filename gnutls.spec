@@ -240,6 +240,9 @@ cd build32
 	--disable-non-suiteb-curves \
 	--disable-rpath \
 	--disable-guile \
+%if %{cross_compiling}
+	--disable-doc \
+%endif
 	--with-default-priority-string="@SYSTEM"
 %make_build
 cd ..
@@ -263,6 +266,9 @@ LDFLAGS="%{build_ldflags} -fprofile-generate" \
 	--disable-non-suiteb-curves \
 	--disable-rpath \
 	--disable-guile \
+%if %{cross_compiling}
+	--disable-doc \
+%endif
 	--with-default-priority-string="@SYSTEM"
 
 %make_build
@@ -293,6 +299,9 @@ LDFLAGS="%{build_ldflags} -fprofile-use=$PROFDATA" \
 	--disable-non-suiteb-curves \
 	--disable-rpath \
 	--disable-guile \
+%if %{cross_compiling}
+	--disable-doc \
+%endif
 	--with-default-priority-string="@SYSTEM"
 
 %make_build LIBS=-ldl
@@ -316,13 +325,17 @@ EOF
 %find_lang %{name}
 
 %files
-%doc %{_docdir}/%{name}
 %{_bindir}/[cgs]*
 %{_bindir}/psktool
 %{_bindir}/p11tool
 %{_bindir}/ocsptool
+%if ! %{cross_compiling}
+# Docs don't crosscompile because the "errcodes" tool
+# (used to generate docs) is always built for the target
+%doc %{_docdir}/%{name}
 %doc %{_mandir}/man?/*
 %doc %{_infodir}/*
+%endif
 
 %files danetool
 %{_bindir}/danetool
