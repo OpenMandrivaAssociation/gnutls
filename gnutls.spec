@@ -27,6 +27,11 @@
 %define sdev32name %mklib32name %{name} -d -s
 %define libdanename %mklibname %{name}-dane
 
+%ifarch %{loongarch64}
+# Workaround for dwz crashing when extracting debuginfo
+%global optflags %{optflags} -gdwarf-4
+%endif
+
 # (tpg) enable PGO build
 %if ! %{cross_compiling}
 %bcond_without pgo
