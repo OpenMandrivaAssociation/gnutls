@@ -232,6 +232,12 @@ export CONFIGURE_TOP="$(pwd)"
 mkdir build32
 cd build32
 # FIXME p11-kit disabled for now to avoid circular build deps
+# clang -m32 needs i386 compiler-rt from cross-i686-*-clang, which the
+# native buildroot does not install, so configure cannot link a test
+# binary. gcc -m32 uses the multilib crt/libgcc already in the chroot.
+# The native build below stays on clang.
+export CC=gcc
+export CXX=g++
 %configure32 \
 	--host=i686-openmandriva-linux-gnu \
 	--target=i686-openmandriva-linux-gnu \
@@ -251,6 +257,8 @@ cd build32
 	--with-default-priority-string="@SYSTEM"
 %make_build
 cd ..
+unset CC
+unset CXX
 %endif
 
 mkdir build
